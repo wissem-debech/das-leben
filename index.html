@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="قواعد اللغة الألمانية A1 مرتّبة حسب كتاب Das Leben، مع أمثلة وأخطاء شائعة واختبارات.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>دليل القواعد الألمانية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap">
+<style>
+/* Layout: one reading column; sticky unit rail; topics grouped under Das Leben A1 units; Plateau tests between unit blocks */
+:root{
+  --paper:#f3f4f1; --surface:#ffffff; --ink:#18233a; --muted:#5d6577; --line:#dcdfe3;
+  --accent:#1f4fa3; --accent-soft:#e3eaf7; --ochre:#b7811a; --ochre-soft:#f6ecd6;
+  --ok:#2e7d4f; --ok-soft:#e1f1e7; --bad:#b23a3a; --bad-soft:#f7e3e3;
+  --f-display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+  --f-de:"Literata",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11151d; --surface:#192030; --ink:#e7eaf0; --muted:#9aa3b5; --line:#2a3346;
+  --accent:#7ea6ec; --accent-soft:#1f2c47; --ochre:#e0b25a; --ochre-soft:#3a2f18;
+  --ok:#6cc792; --ok-soft:#173326; --bad:#ec8a8a; --bad-soft:#3d1d1d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11151d; --surface:#192030; --ink:#e7eaf0; --muted:#9aa3b5; --line:#2a3346;
+  --accent:#7ea6ec; --accent-soft:#1f2c47; --ochre:#e0b25a; --ochre-soft:#3a2f18;
+  --ok:#6cc792; --ok-soft:#173326; --bad:#ec8a8a; --bad-soft:#3d1d1d; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:150px}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:760px;margin:0 auto}
+header.top{padding-block:26px 12px;display:grid;gap:8px}
+h1{font-family:var(--f-display);font-size:clamp(1.7rem,6vw,2.4rem);line-height:1.25;margin:0;text-wrap:balance}
+h1 .de{font-family:var(--f-de);font-weight:600;color:var(--accent);font-size:.62em;display:block;direction:ltr;text-align:right}
+.lede{color:var(--muted);margin:0;max-width:60ch}
+.stats{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
+.stats b{color:var(--ink);font-variant-numeric:tabular-nums}
+.prog{flex:1;min-width:140px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding-block:10px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-de);font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:3px 10px;cursor:pointer;text-decoration:none;direction:ltr;font-variant-numeric:tabular-nums}
+.chip.full{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.chip.pl{border-color:var(--ochre);color:var(--ochre)}
+.search{width:100%;font:inherit;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+.list{display:grid;gap:8px;margin-top:18px}
+.unit{display:grid;gap:2px;margin:18px 0 4px}
+.unit:first-child{margin-top:0}
+.unit .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.unit .n{font-family:var(--f-de);font-weight:600;color:var(--paper);background:var(--ink);border-radius:6px;padding:0 8px;font-size:.85rem;direction:ltr}
+.unit .ttl{font-family:var(--f-display);font-size:1.15rem}
+.unit .de{font-family:var(--f-de);color:var(--muted);font-size:.9rem;direction:ltr}
+.topic{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.topic.done{border-inline-start:4px solid var(--ok)}
+summary.row{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+.row .t{flex:1;min-width:0;display:grid}
+.row .t strong{font-weight:600}
+.row .t span{font-family:var(--f-de);direction:ltr;text-align:right;color:var(--accent);font-size:.9rem}
+.check{flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--surface);font-size:.7rem}
+.topic.done .check{background:var(--ok);border-color:var(--ok)}
+.chev{flex:none;width:20px;height:20px;transition:transform .2s;color:var(--muted)}
+.topic[open] .chev{transform:rotate(180deg)}
+.body{padding:0 14px 16px;display:grid;gap:12px}
+.body p{margin:0}
+.h{font-size:.78rem;font-weight:600;color:var(--muted);letter-spacing:.02em;margin-bottom:-6px}
+.rule{background:var(--ochre-soft);border-radius:8px;padding:8px 12px;font-family:var(--f-de);direction:ltr;text-align:left;font-weight:600}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-family:var(--f-de);direction:ltr;min-width:100%;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:5px 9px;text-align:left;white-space:nowrap}
+th{background:var(--accent-soft);font-weight:600}
+td.ar{font-family:var(--f-body);direction:rtl;text-align:right;white-space:normal}
+.ex{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.ex li{border-inline-start:3px solid var(--accent);padding-inline-start:10px;display:grid}
+.de-t{font-family:var(--f-de);direction:ltr;text-align:left;font-size:1.02rem}
+.de-t mark{background:none;color:var(--accent);font-weight:600}
+.ex .ar{color:var(--muted);font-size:.9rem}
+.err{display:grid;gap:4px;border-radius:8px;padding:8px 12px;background:var(--surface);border:1px solid var(--line)}
+.err .w,.err .r{display:flex;gap:8px;align-items:baseline}
+.err .w .de-t{text-decoration:line-through;text-decoration-color:var(--bad);color:var(--muted)}
+.err .sym{flex:none;font-weight:700;width:1em;text-align:center}
+.err .w .sym{color:var(--bad)} .err .r .sym{color:var(--ok)}
+.tip{font-size:.92rem;background:var(--accent-soft);border-radius:8px;padding:8px 12px}
+.tip b{color:var(--accent)}
+.quiz{border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:14px}
+.qi{display:grid;gap:6px}
+.qi .q{font-family:var(--f-de);direction:ltr;text-align:left;font-size:1.02rem}
+.qi .q .num{color:var(--ochre);font-weight:600;margin-right:6px}
+.opts{display:flex;flex-wrap:wrap;gap:6px;direction:ltr}
+.opt{font-family:var(--f-de);font-size:.95rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.qscore{font-size:.88rem;font-weight:600}
+.mark{justify-self:start;font:inherit;font-size:.88rem;border:1px solid var(--ok);color:var(--ok);background:none;border-radius:8px;padding:4px 12px;cursor:pointer}
+.topic.done .mark{background:var(--ok);color:var(--surface)}
+.plateau{margin:14px 0 6px;border:1.5px dashed var(--ochre);border-radius:12px;padding:12px 14px;display:grid;gap:10px;background:var(--ochre-soft)}
+.plateau .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.plateau strong{font-family:var(--f-de);direction:ltr}
+.plateau .sub{font-size:.88rem;color:var(--muted)}
+.btn{font:inherit;font-size:.9rem;background:var(--ochre);color:var(--surface);border:0;border-radius:8px;padding:6px 14px;cursor:pointer}
+.btn.ghost{background:none;color:var(--ochre);border:1px solid var(--ochre)}
+.pq{display:grid;gap:10px;background:var(--surface);border-radius:10px;padding:12px}
+.pq .meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pq .src{font-size:.8rem;color:var(--muted)}
+.result{text-align:center;display:grid;gap:6px;justify-items:center}
+.result .big{font-family:var(--f-de);font-size:2rem;font-weight:600;font-variant-numeric:tabular-nums;direction:ltr}
+.empty{color:var(--muted);text-align:center;padding:30px 0}
+.final{border-color:var(--accent);background:var(--accent-soft)}
+.final .btn{background:var(--accent)}
+.final .btn.ghost{background:none;color:var(--accent);border-color:var(--accent)}
+footer{color:var(--muted);font-size:.82rem;margin-top:28px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="top">
+    <h1>دليل القواعد الألمانية<span class="de">Das Leben A1 · Grammatik</span></h1>
+    <p class="lede">قواعد A1 مرتّبة حسب وحدات كتاب Das Leben. في كل قاعدة شرح وأمثلة وخطأ شائع وثلاثة أسئلة، وبعد كل أربع وحدات اختبار Plateau. المستويات التالية قريباً.</p>
+    <div class="stats"><span>تعلّمت <b id="nDone">0</b> من <b id="nAll">0</b></span><div class="prog"><i id="pg"></i></div></div>
+  </header>
+  <div class="bar">
+    <nav class="chips" id="chips" aria-label="الوحدات"></nav>
+    <input class="search" id="q" type="search" placeholder="ابحث عن قاعدة… مثل Akkusativ أو الماضي">
+  </div>
+  <main id="main"></main>
+  <footer>التقدّم يُحفظ في متصفحك فقط. ترتيب الوحدات حسب Das Leben A1، وقد تختلف تفاصيل صغيرة عن نسختك. راجع مع أستاذك وتدرّب على نماذج telc و ÖSD الرسمية.</footer>
+</div>
+
+<script>
+const UNITS=[
+ ["S","Start","Willkommen!","أهلاً وسهلاً"],
+ [1,"Einheit 1","Sommerkurs in Leipzig","دورة صيفية في لايبزيغ"],
+ [2,"Einheit 2","Möller oder Müller?","Möller أم Müller؟"],
+ [3,"Einheit 3","Arbeiten im Café","العمل في المقهى"],
+ [4,"Einheit 4","Lecker Essen!","طعام لذيذ!",1],
+ [5,"Einheit 5","Hast du Zeit?","هل لديك وقت؟"],
+ [6,"Einheit 6","Meine Stadt","مدينتي"],
+ [7,"Einheit 7","Der neue Job","العمل الجديد"],
+ [8,"Einheit 8","Freizeit und Hobbys","وقت الفراغ والهوايات",2],
+ [9,"Einheit 9","Zuhause","في البيت"],
+ [10,"Einheit 10","Familie Schumann","عائلة شومان"],
+ [11,"Einheit 11","Viel Arbeit","عمل كثير"],
+ [12,"Einheit 12","Essen und Trinken","الأكل والشرب",3],
+ [13,"Einheit 13","Fit und gesund","لائق وبصحة جيدة"],
+ [14,"Einheit 14","Voll im Trend","على الموضة"],
+ [15,"Einheit 15","Jahreszeiten und Feste","الفصول والأعياد"],
+ [16,"Einheit 16","Ab in den Urlaub!","هيا إلى العطلة!",4]
+];
+const T=[
+{u:"S",ar:"الحروف والنطق",de:"Alphabet und Umlaute",
+ x:"الألمانية تُنطق غالباً كما تُكتب. تعلّم الحروف الخاصة ä, ö, ü, ß والتركيبات المهمة، وتذكّر أن كل الأسماء تُكتب بحرف كبير.",
+ tbl:[["ä","مثل e المفتوحة","Käse"],["ö","o بشفاه مستديرة كأنك تقول e","schön"],["ü","u بشفاه مستديرة كأنك تقول i","müde"],["ß","s قوية","Straße"],["ei / ie","«آي» / «إي» طويلة","mein / Liebe"],["sch / ch","«ش» / «خ» أو «ش» خفيفة","Schule / ich"]],
+ ex:[["Wie schreibt man das? – <mark>M-ü-l-l-e-r</mark>.","كيف يُكتب هذا؟"],["Können Sie das bitte <mark>buchstabieren</mark>?","هل يمكنك تهجئته من فضلك؟"]],
+ err:["das buch, der tisch","das Buch, der Tisch"],
+ tip:"ei تُنطق «آي» و ie تُنطق «إي»: <b>Wein</b> (نبيذ) ≠ <b>Wien</b> (فيينا).",
+ qz:[["Welches Wort spricht man mit „ai“ aus?",["viel","mein","Bier"],1],["Welches Wort hat ein „ü“?",["Mutter","müde","Mode"],1],["Wie spricht man „Wien“?",["wie „Wein“","mit langem „i“","mit „ai“"],1]]},
+{u:"S",ar:"أدوات التعريف والجنس",de:"Artikel: der, die, das",
+ x:"لكل اسم جنس: مذكر der، مؤنث die، محايد das. الجمع دائماً die. احفظ الاسم مع أداته دائماً.",
+ tbl:[["","maskulin","feminin","neutral","Plural"],["bestimmt","der","die","das","die"],["unbestimmt","ein","eine","ein","–"]],
+ ex:[["<mark>der</mark> Stift, <mark>die</mark> Tafel, <mark>das</mark> Buch","القلم، السبورة، الكتاب"],["Das ist <mark>ein</mark> Tisch.","هذه طاولة."]],
+ err:["Das ist ein Tafel.","Das ist eine Tafel."],
+ tip:"الأسماء المنتهية بـ ‎-ung, -heit, -keit مؤنثة، والمنتهية بـ ‎-chen محايدة. اكتب كل اسم جديد بلون حسب جنسه.",
+ qz:[["___ Tafel ist groß.",["Der","Die","Das"],1],["___ Zeitung (‑ung)",["der","die","das"],1],["___ Mädchen (‑chen)",["der","die","das"],2]]},
+
+{u:1,ar:"تصريف الفعل في المضارع",de:"Präsens: regelmäßige Verben",
+ x:"نحذف ‎-en من المصدر ونضيف نهاية حسب الضمير.",
+ rule:"ich -e · du -st · er/sie/es -t · wir -en · ihr -t · sie/Sie -en",
+ tbl:[["","wohnen","heißen","arbeiten"],["ich","wohne","heiße","arbeite"],["du","wohnst","heißt","arbeitest"],["er/sie/es","wohnt","heißt","arbeitet"],["wir","wohnen","heißen","arbeiten"],["ihr","wohnt","heißt","arbeitet"],["sie/Sie","wohnen","heißen","arbeiten"]],
+ ex:[["Ich <mark>komme</mark> aus Tunesien.","أنا من تونس."],["Wo <mark>wohnst</mark> du?","أين تسكن؟"],["Sie <mark>lernt</mark> Deutsch.","هي تتعلم الألمانية."]],
+ err:["Ich wohnen in Tunis.","Ich wohne in Tunis."],
+ tip:"إذا انتهى الجذر بـ t أو d نضيف e: du arbeit<b>e</b>st. وإذا انتهى بـ s أو ß أو z نضيف مع du ‎-t فقط: du heißt.",
+ qz:[["Wir ___ Deutsch. (lernen)",["lernt","lernen","lernst"],1],["Du ___ in Leipzig. (wohnen)",["wohnt","wohnst","wohne"],1],["Er ___ als Kellner. (arbeiten)",["arbeitt","arbeitet","arbeitest"],1]]},
+{u:1,ar:"الأسئلة وترتيب الجملة",de:"W-Fragen und Ja/Nein-Fragen",
+ x:"في الجملة الخبرية وفي سؤال أداة الاستفهام يأتي الفعل في المكان الثاني. في سؤال نعم/لا يأتي الفعل أولاً.",
+ rule:"Wo | wohnst | du?   ·   Wohnst | du in Tunis?",
+ ex:[["Ich <mark>lerne</mark> Deutsch.","أتعلم الألمانية."],["Was <mark>machst</mark> du?","ماذا تفعل؟"],["<mark>Sprichst</mark> du Englisch?","هل تتكلم الإنجليزية؟"]],
+ err:["Wo du wohnst?","Wo wohnst du?"],
+ tip:"إذا بدأت الجملة بالزمان أو المكان، يأتي الفاعل بعد الفعل: Heute <b>lerne ich</b>.",
+ qz:[["Am Montag ___ bis 17 Uhr.",["ich arbeite","arbeite ich","arbeiten ich"],1],["___ du Arabisch?",["Sprichst","Du sprichst","Sprechen"],0],["Was ___?",["du machst","machst du","machen du"],1]]},
+{u:1,ar:"المخاطبة: du أو Sie",de:"du oder Sie",
+ x:"du للأصدقاء والعائلة والأطفال وبين الطلاب. Sie (بحرف كبير) للمخاطبة الرسمية مع الغرباء والأساتذة وفي العمل، وتصريفه مثل الجمع.",
+ ex:[["Wie heißt <mark>du</mark>?","ما اسمك؟ (غير رسمي)"],["Wie heißen <mark>Sie</mark>?","ما اسم حضرتك؟ (رسمي)"],["Woher kommen <mark>Sie</mark>, Frau Weber?","من أين أنتِ يا سيدة فيبر؟"]],
+ err:["Herr Müller, woher kommst du?","Herr Müller, woher kommen Sie?"],
+ tip:"في الامتحان الشفوي استعمل <b>Sie</b> مع الممتحِن، ويمكنك استعمال du مع زميلك.",
+ qz:[["(zum Lehrer) Woher ___ Sie?",["kommst","kommen","kommt"],1],["(zu einem Freund) Wie heißt ___?",["Sie","du","ihr"],1],["Frau Klein, ___ Sie Kaffee?",["trinkst","trinken","trinkt"],1]]},
+
+{u:2,ar:"جمع الأسماء",de:"Plural",
+ x:"أداة الجمع دائماً die. لا توجد قاعدة واحدة للنهايات، لذلك احفظ الجمع مع الاسم.",
+ tbl:[["-e","der Tag → die Tage"],["-(e)n","die Frau → die Frauen"],["-er / ¨-er","das Kind → die Kinder"],["-s","das Auto → die Autos"],["– / ¨","der Lehrer → die Lehrer"]],
+ ex:[["eine Lampe → zwei Lamp<mark>en</mark>","مصباح ← مصباحان"],["ein Buch → drei B<mark>ü</mark>ch<mark>er</mark>","كتاب ← ثلاثة كتب"]],
+ err:["zwei Buch","zwei Bücher"],
+ tip:"أغلب الأسماء المؤنثة تُجمع بـ ‎-(e)n، والكلمات الأجنبية بـ ‎-s. في القاموس تجد الجمع مكتوباً هكذا: Buch, ¨-er.",
+ qz:[["ein Kind → zwei ___",["Kinds","Kinder","Kinden"],1],["die Frau → die ___",["Fraus","Frauen","Fräue"],1],["das Auto → die ___",["Auten","Autos","Autoe"],1]]},
+{u:2,ar:"الأرقام",de:"Zahlen",
+ x:"من 21 إلى 99 نقرأ الآحاد أولاً ثم العشرات: einundzwanzig = واحد وعشرون، تماماً مثل العربية.",
+ tbl:[["1–12","eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf"],["13–19","dreizehn … neunzehn (sechzehn, siebzehn)"],["20–90","zwanzig, dreißig, vierzig … neunzig"],["21","einundzwanzig"],["100 / 1000","hundert / tausend"]],
+ ex:[["Meine Nummer ist <mark>null – eins – sieben</mark> …","رقمي هو…"],["Das kostet <mark>fünfundvierzig</mark> Euro.","هذا بخمسة وأربعين يورو."]],
+ err:["zweiundvierzig = 24","zweiundvierzig = 42"],
+ tip:"انتبه: dreißig تُكتب بـ ß وليس ‎-zig، و sechzehn و siebzehn تفقدان بعض الحروف.",
+ qz:[["67 = ?",["sechzigsieben","siebenundsechzig","sechsundsiebzig"],1],["30 = ?",["dreizig","dreißig","dreizehn"],1],["16 = ?",["sechszehn","sechzehn","sechzig"],1]]},
+{u:2,ar:"أدوات الاستفهام",de:"Fragewörter",
+ x:"أدوات الاستفهام تأتي في أول الجملة، ثم الفعل مباشرة.",
+ tbl:[["wer?","من؟"],["was?","ماذا؟"],["wo?","أين؟"],["woher?","من أين؟"],["wohin?","إلى أين؟"],["wie?","كيف؟"],["wie viel?","كم؟"]],
+ ex:[["<mark>Wer</mark> ist das?","من هذا؟"],["<mark>Woher</mark> kommst du?","من أين أنت؟"],["<mark>Wie</mark> ist deine Telefonnummer?","ما رقم هاتفك؟"]],
+ err:["Was heißt du?","Wie heißt du?"],
+ tip:"للسؤال عن الاسم والرقم والعنوان نستعمل <b>wie</b> وليس was.",
+ qz:[["___ kommen Sie? – Aus Tunesien.",["Wo","Woher","Wohin"],1],["___ ist das? – Das ist Anna.",["Was","Wer","Wie"],1],["___ heißen Sie?",["Wer","Wie","Was"],1]]},
+
+{u:3,ar:"فعل الكون sein",de:"Das Verb sein",
+ x:"أهم فعل في اللغة، وتصريفه شاذ فيجب حفظه.",
+ tbl:[["","sein"],["ich","bin"],["du","bist"],["er/sie/es","ist"],["wir","sind"],["ihr","seid"],["sie/Sie","sind"]],
+ ex:[["Ich <mark>bin</mark> Kellner.","أنا نادل."],["Das <mark>ist</mark> mein Kollege.","هذا زميلي."],["<mark>Seid</mark> ihr Studenten?","هل أنتم طلاب؟"]],
+ err:["Ich bin ein Lehrer.","Ich bin Lehrer."],
+ tip:"مع المهن والجنسيات لا نستعمل أداة: Ich bin Lehrer. Er ist Tunesier.",
+ qz:[["Wir ___ neu hier.",["ist","sind","seid"],1],["Ihr ___ sehr nett.",["sind","seid","seit"],1],["___ du müde?",["Bist","Ist","Bin"],0]]},
+{u:3,ar:"أداة التنكير والنفي: ein و kein",de:"ein und kein",
+ x:"kein تنفي اسماً نكرة، وتتصرّف مثل ein تماماً.",
+ tbl:[["","mask.","fem.","neutr.","Plural"],["ein","ein","eine","ein","–"],["kein","kein","keine","kein","keine"]],
+ ex:[["Ist das <mark>ein</mark> Tee? – Nein, das ist <mark>kein</mark> Tee.","هل هذا شاي؟ لا، ليس شاياً."],["Das sind <mark>keine</mark> Kekse.","هذه ليست بسكويتاً."]],
+ err:["Das ist nicht ein Tee.","Das ist kein Tee."],
+ tip:"ein ليس لها جمع، أما kein فجمعها keine.",
+ qz:[["Das ist ___ Cola, das ist Wasser.",["kein","keine","nicht"],1],["Ist das ___ Apfel?",["eine","ein","einen"],1],["Das sind ___ Brötchen.",["kein","keine","nicht"],1]]},
+{u:3,ar:"ضمير الملكية mein و dein",de:"Possessivartikel: mein, dein",
+ x:"mein = لي، dein = لك. تتصرّف مثل ein / kein.",
+ ex:[["Das ist <mark>mein</mark> Café.","هذا مقهاي."],["Das ist <mark>meine</mark> Chefin.","هذه مديرتي."],["Ist das <mark>dein</mark> Handy?","هل هذا هاتفك؟"]],
+ err:["Das ist mein Schwester.","Das ist meine Schwester."],
+ tip:"مع الاسم المؤنث والجمع نضيف ‎-e: meine Tasse, meine Freunde.",
+ qz:[["Das ist ___ Freundin Sara.",["mein","meine","meinen"],1],["Das ist ___ Bruder.",["meine","mein","meinen"],1],["Sind das ___ Kinder? (du)",["dein","deine","deinen"],1]]},
+{u:3,ar:"الطلب المؤدب: ich möchte",de:"ich möchte",
+ x:"للطلب في المقهى والمطعم والمحلات. möchte في المكان الثاني، والاسم بعده، أو المصدر في آخر الجملة.",
+ tbl:[["ich","möchte"],["du","möchtest"],["er/sie/es","möchte"],["wir","möchten"],["ihr","möchtet"],["sie/Sie","möchten"]],
+ ex:[["Ich <mark>möchte</mark> einen Kaffee, bitte.","أريد قهوة من فضلك."],["Was <mark>möchten</mark> Sie trinken?","ماذا تريد أن تشرب؟"]],
+ err:["Ich möchte trinken einen Kaffee.","Ich möchte einen Kaffee trinken."],
+ tip:"ich möchte أكثر تهذيباً من ich will. استعملها دائماً في المقهى والامتحان.",
+ qz:[["___ du ein Wasser?",["Möchte","Möchtest","Möchtet"],1],["Wir ___ zwei Tee, bitte.",["möchte","möchten","möchtet"],1],["Was ___ Sie?",["möchten","möchtest","möchte"],0]]},
+
+{u:4,ar:"المفعول به (Akkusativ)",de:"Akkusativ",
+ x:"المفعول به المباشر يكون في Akkusativ. التغيير يحدث مع المذكر فقط: der→den، ein→einen، kein→keinen.",
+ tbl:[["","mask.","fem.","neutr.","Plural"],["Nominativ","der / ein","die / eine","das / ein","die / –"],["Akkusativ","den / einen","die / eine","das / ein","die / –"]],
+ ex:[["Ich esse <mark>einen</mark> Salat.","آكل سلطة."],["Wir brauchen <mark>keinen</mark> Zucker.","لا نحتاج سكراً."],["Es gibt <mark>einen</mark> Apfelkuchen.","يوجد كعك بالتفاح."]],
+ err:["Ich habe ein Bruder.","Ich habe einen Bruder."],
+ tip:"es gibt و haben و brauchen و essen و nehmen كلها تأخذ Akkusativ.",
+ qz:[["Ich nehme ___ Tee.",["ein","einen","einem"],1],["Ich brauche ___ Löffel. (der)",["der","den","dem"],1],["Es gibt ___ Supermarkt hier.",["ein","einen","eine"],1]]},
+{u:4,ar:"النفي: nicht أو kein",de:"nicht oder kein",
+ x:"kein ينفي الاسم النكرة أو الاسم بلا أداة. nicht ينفي الفعل أو الصفة أو الاسم المعرّف.",
+ ex:[["Ich esse <mark>kein</mark> Fleisch.","لا آكل اللحم."],["Ich esse <mark>nicht</mark> gern Fisch.","لا أحب أكل السمك."],["Die Suppe ist <mark>nicht</mark> heiß.","الحساء ليس ساخناً."]],
+ err:["Ich esse nicht Fleisch.","Ich esse kein Fleisch."],
+ tip:"اسأل نفسك: هل أنفي اسماً بدون der/die/das؟ ← kein. غير ذلك ← nicht.",
+ qz:[["Ich trinke ___ Kaffee.",["nicht","keinen","kein"],1],["Das Essen ist ___ teuer.",["kein","nicht","keine"],1],["Ich habe ___ Hunger.",["nicht","keinen","kein"],1]]},
+{u:4,ar:"الحب والتفضيل: mögen و gern",de:"mögen und gern",
+ x:"mögen + اسم: أحب شيئاً. gern + فعل: أحب فعل شيء. gern تأتي بعد الفعل.",
+ tbl:[["ich","mag"],["du","magst"],["er/sie","mag"],["wir","mögen"],["ihr","mögt"],["sie/Sie","mögen"]],
+ ex:[["Ich <mark>mag</mark> Pizza.","أحب البيتزا."],["Ich koche <mark>gern</mark>.","أحب الطبخ."],["Er isst <mark>nicht gern</mark> Gemüse.","لا يحب أكل الخضار."]],
+ err:["Ich gern esse Fisch.","Ich esse gern Fisch."],
+ tip:"gern → lieber → am liebsten: Ich trinke <b>lieber</b> Tee.",
+ qz:[["Isst du ___ Fisch?",["mag","gern","möchte"],1],["___ du Schokolade?",["Magst","Mag","Mögt"],0],["Ich trinke Tee ___ als Kaffee.",["gerner","lieber","mehr"],1]]},
+{u:4,ar:"الأفعال التي يتغيّر حرفها",de:"Verben mit Vokalwechsel",
+ x:"بعض الأفعال تغيّر حرف العلة مع du و er/sie/es فقط.",
+ tbl:[["e → i","essen: du isst, er isst · nehmen: du nimmst, er nimmt"],["e → ie","lesen: du liest, er liest · sehen: du siehst"],["a → ä","fahren: du fährst · schlafen: er schläft"]],
+ ex:[["Was <mark>nimmst</mark> du?","ماذا تأخذ؟"],["Sie <mark>isst</mark> gern Couscous.","تحب أكل الكسكسي."]],
+ err:["Er esst Brot.","Er isst Brot."],
+ tip:"wir و ihr و sie يبقون بلا تغيير: wir nehmen, ihr esst.",
+ qz:[["Er ___ ein Stück Kuchen. (nehmen)",["nehmt","nimmt","nehmen"],1],["Du ___ ein Buch. (lesen)",["lest","liest","lesst"],1],["Sie ___ nach Hause. (fahren)",["fahrt","fährt","fähren"],1]]},
+
+{u:5,ar:"الوقت والمواعيد",de:"Uhrzeit und Zeitangaben",
+ x:"am مع الأيام وأجزاء اليوم، um مع الساعة، von … bis للمدة، im مع الشهور والفصول.",
+ tbl:[["am","am Montag, am Abend"],["um","um 8 Uhr"],["von … bis","von 9 bis 17 Uhr"],["im","im Mai, im Sommer"]],
+ ex:[["Es ist <mark>halb</mark> acht. (7:30)","الساعة السابعة والنصف."],["Es ist <mark>Viertel nach</mark> drei. (3:15)","الثالثة والربع."],["Es ist <mark>Viertel vor</mark> zehn. (9:45)","العاشرة إلا ربعاً."]],
+ err:["Ich komme um Montag.","Ich komme am Montag."],
+ tip:"halb acht = 7:30 وليس 8:30، لأن المعنى «نصف ساعة قبل الثامنة».",
+ qz:[["Ich arbeite ___ Montag ___ Freitag.",["am / um","von / bis","um / bis"],1],["Der Film beginnt ___ 20 Uhr.",["am","um","im"],1],["7:30 = ?",["halb acht","halb sieben","sieben halb"],0]]},
+{u:5,ar:"الأفعال المنفصلة",de:"Trennbare Verben",
+ x:"بعض الأفعال لها بادئة تنفصل وتذهب إلى آخر الجملة: an, auf, aus, ein, mit, zu, fern…",
+ rule:"anrufen → Ich rufe dich morgen an.",
+ ex:[["Ich <mark>stehe</mark> um 7 Uhr <mark>auf</mark>.","أستيقظ في السابعة."],["Wann <mark>kaufst</mark> du <mark>ein</mark>?","متى تتسوّق؟"],["Wir <mark>sehen</mark> abends <mark>fern</mark>.","نشاهد التلفاز مساءً."]],
+ err:["Ich anrufe meine Mutter.","Ich rufe meine Mutter an."],
+ tip:"البادئات be-, ver-, er-, ent-, ge- لا تنفصل أبداً: verstehen → ich verstehe.",
+ qz:[["Ich ___ am Samstag ___. (einkaufen)",["einkaufe / –","kaufe / ein","kaufe / einkaufen"],1],["Der Zug ___ um 9 Uhr ___. (ankommen)",["ankommt / –","kommt / an","an / kommt"],1],["Ich ___ das Wort nicht. (verstehen)",["stehe … ver","verstehe","ver stehe"],1]]},
+{u:5,ar:"السؤال عن الزمن: wann و wie lange",de:"wann? wie lange? wie oft?",
+ x:"wann للسؤال عن وقت حدوث شيء. wie lange للسؤال عن المدة. wie oft لعدد المرات.",
+ ex:[["<mark>Wann</mark> hast du Zeit? – Am Freitag.","متى لديك وقت؟ يوم الجمعة."],["<mark>Wie lange</mark> dauert der Film? – Zwei Stunden.","كم يستغرق الفيلم؟ ساعتين."],["<mark>Wie oft</mark> gehst du ins Kino?","كم مرة تذهب إلى السينما؟"]],
+ err:["Wann lange dauert der Kurs?","Wie lange dauert der Kurs?"],
+ tip:"جواب wann فيه am/um، وجواب wie lange فيه مدة (Stunden, Tage).",
+ qz:[["___ dauert der Kurs? – Drei Monate.",["Wann","Wie lange","Wie viel"],1],["___ beginnt die Party? – Um acht.",["Wie lange","Wann","Wo"],1],["___ gehst du schwimmen? – Zweimal pro Woche.",["Wann","Wie oft","Wie lange"],1]]},
+
+{u:6,ar:"ضمائر الملكية (كاملة)",de:"Possessivartikel",
+ x:"mein, dein, sein (له)، ihr (لها)، unser, euer, ihr/Ihr. كلها تأخذ نهايات ein.",
+ tbl:[["ich","mein"],["du","dein"],["er / es","sein"],["sie","ihr"],["wir","unser"],["ihr","euer"],["sie / Sie","ihr / Ihr"]],
+ ex:[["Das ist <mark>unsere</mark> Stadt.","هذه مدينتنا."],["Anna und <mark>ihr</mark> Bruder","آنا وأخوها"],["Ist das <mark>Ihr</mark> Auto?","هل هذه سيارة حضرتك؟"]],
+ err:["Maria und sein Mann","Maria und ihr Mann"],
+ tip:"sein لصاحب مذكر، و ihr لصاحبة مؤنثة. Ihr بحرف كبير = لحضرتك.",
+ qz:[["Tarek besucht ___ Oma.",["ihre","seine","seinen"],1],["Wir lieben ___ Stadt.",["unser","unsere","unseren"],1],["Frau Weber, ist das ___ Tasche?",["Ihre","ihre","deine"],0]]},
+{u:6,ar:"صيغة الأمر الرسمية",de:"Imperativ mit Sie",
+ x:"لإعطاء تعليمات أو وصف الطريق بشكل مؤدب: الفعل أولاً ثم Sie.",
+ ex:[["<mark>Gehen Sie</mark> geradeaus.","امشِ إلى الأمام."],["<mark>Biegen Sie</mark> an der Ampel rechts <mark>ab</mark>.","انعطف يميناً عند الإشارة."],["<mark>Nehmen Sie</mark> die U-Bahn.","خذ المترو."]],
+ err:["Sie gehen geradeaus! (كأمر)","Gehen Sie geradeaus!"],
+ tip:"أضف bitte ليكون الطلب ألطف: Warten Sie <b>bitte</b> hier.",
+ qz:[["___ Sie bitte die zweite Straße links.",["Nimmst","Nehmen","Nimm"],1],["___ Sie bitte langsam!",["Sprechen","Sprecht","Sprich"],0],["Biegen Sie an der Ampel links ___.",["an","ab","auf"],1]]},
+
+{u:7,ar:"حروف الجر للمكان مع Dativ",de:"Lokale Präpositionen mit Dativ (wo?)",
+ x:"للجواب عن السؤال wo? (أين؟) نستعمل حروف المكان مع Dativ.",
+ tbl:[["","mask.","fem.","neutr.","Plural"],["Dativ","dem","der","dem","den"]],
+ ex:[["Das Handy liegt <mark>auf dem</mark> Tisch.","الهاتف على الطاولة."],["Die Lampe steht <mark>neben der</mark> Tür.","المصباح بجانب الباب."],["Ich arbeite <mark>im</mark> Büro.","أعمل في المكتب."]],
+ err:["Das Buch liegt auf den Tisch.","Das Buch liegt auf dem Tisch."],
+ tip:"in dem = <b>im</b>، an dem = <b>am</b>. المؤنث في Dativ يصبح <b>der</b>.",
+ qz:[["Der Drucker steht ___ Fenster.",["neben das","neben dem","neben der"],1],["Die Kaffeemaschine steht in ___ Küche.",["die","der","dem"],1],["Der Computer ist ___ Büro.",["im","in","ins"],0]]},
+
+{u:8,ar:"الماضي: war و hatte",de:"Präteritum von sein und haben",
+ x:"للحديث عن الماضي نستعمل war (كان) و hatte (كان لدي)، حتى في الكلام اليومي.",
+ tbl:[["","sein","haben"],["ich","war","hatte"],["du","warst","hattest"],["er/sie/es","war","hatte"],["wir","waren","hatten"],["ihr","wart","hattet"],["sie/Sie","waren","hatten"]],
+ ex:[["Gestern <mark>war</mark> ich im Kino.","أمس كنت في السينما."],["Wir <mark>hatten</mark> viel Spaß.","استمتعنا كثيراً."]],
+ err:["Gestern ich war krank.","Gestern war ich krank."],
+ tip:"مع ich و er/sie لا نهاية: ich war, er war.",
+ qz:[["Am Wochenende ___ ich keine Zeit.",["habe","hatte","war"],1],["Wo ___ du gestern?",["warst","war","wart"],0],["Wir ___ ein Problem.",["hatte","hatten","hattet"],1]]},
+{u:8,ar:"فعل können",de:"Modalverb können",
+ x:"können = يستطيع / يعرف كيف. الفعل المساعد في المكان الثاني والفعل الأساسي في المصدر آخر الجملة.",
+ rule:"Ich | kann | gut | schwimmen.",
+ tbl:[["ich","kann"],["du","kannst"],["er/sie","kann"],["wir","können"],["ihr","könnt"],["sie/Sie","können"]],
+ ex:[["Ich <mark>kann</mark> gut <mark>schwimmen</mark>.","أستطيع السباحة جيداً."],["<mark>Kannst</mark> du Gitarre <mark>spielen</mark>?","هل تعزف الغيتار؟"]],
+ err:["Ich kann spielen Gitarre.","Ich kann Gitarre spielen."],
+ tip:"مع ich و er/sie لا نضيف نهاية: ich kann, er kann.",
+ qz:[["Er ___ sehr gut ___.",["kann / kochen","kannt / kochen","kann / kocht"],0],["___ ihr gut tanzen?",["Kannst","Könnt","Können"],1],["Ich kann heute nicht ___.",["komme","kommen","kommt"],1]]},
+{u:8,ar:"ظروف التكرار",de:"Häufigkeitsadverbien",
+ x:"للتعبير عن عدد المرات، من الأكثر إلى الأقل.",
+ rule:"immer › meistens › oft › manchmal › selten › nie",
+ ex:[["Ich spiele <mark>oft</mark> Fußball.","ألعب كرة القدم كثيراً."],["Er geht <mark>nie</mark> ins Theater.","لا يذهب أبداً إلى المسرح."]],
+ err:["Oft ich lese.","Oft lese ich."],
+ tip:"يمكن وضعها أول الجملة، وعندها يأتي الفعل بعدها: <b>Manchmal lese</b> ich abends.",
+ qz:[["Ich trinke ___ Kaffee, nur einmal im Monat.",["oft","selten","immer"],1],["Er ist ___ pünktlich, jeden Tag!",["nie","immer","selten"],1],["Manchmal ___ ins Kino.",["ich gehe","gehe ich","gehen ich"],1]]},
+
+{u:9,ar:"الأسماء المركّبة",de:"Komposita",
+ x:"الألمانية تركّب الأسماء ببعضها. الكلمة الأخيرة هي الأساس وتحدّد الأداة.",
+ rule:"wohnen + das Zimmer = das Wohnzimmer",
+ ex:[["die Küche + <mark>der</mark> Tisch = <mark>der</mark> Küchentisch","طاولة المطبخ"],["das Bad + <mark>die</mark> Wanne = <mark>die</mark> Badewanne","حوض الاستحمام"]],
+ err:["die Küchentisch","der Küchentisch"],
+ tip:"الأداة دائماً من الكلمة الأخيرة.",
+ qz:[["das Haus + die Tür = ___ Haustür",["das","die","der"],1],["schlafen + das Zimmer = ___ Schlafzimmer",["der","die","das"],2],["die Wohnung + der Schlüssel = ___ Wohnungsschlüssel",["der","die","das"],0]]},
+{u:9,ar:"حروف الجر للمكان: أين؟ وإلى أين؟",de:"Wechselpräpositionen",
+ x:"تسعة حروف تأخذ Dativ للثبات (wo?) و Akkusativ للحركة نحو مكان (wohin?).",
+ rule:"an, auf, hinter, in, neben, über, unter, vor, zwischen",
+ ex:[["Ich stelle das Sofa <mark>an die</mark> Wand. (wohin?)","أضع الأريكة عند الحائط."],["Das Sofa steht <mark>an der</mark> Wand. (wo?)","الأريكة عند الحائط."]],
+ err:["Ich lege das Handy auf dem Tisch.","Ich lege das Handy auf den Tisch."],
+ tip:"أفعال الحركة stellen, legen ← Akkusativ. أفعال الثبات stehen, liegen ← Dativ.",
+ qz:[["Ich lege das Buch auf ___ Tisch.",["dem","den","der"],1],["Das Bild hängt an ___ Wand.",["die","der","den"],1],["Ich stelle die Lampe neben ___ Bett.",["dem","das","den"],1]]},
+{u:9,ar:"الصفة بعد الفعل و zu",de:"Adjektive nach sein, zu + Adjektiv",
+ x:"الصفة بعد sein لا تأخذ نهاية. zu + صفة = أكثر من اللازم (معنى سلبي).",
+ ex:[["Die Wohnung ist <mark>schön</mark>, aber <mark>zu teuer</mark>.","الشقة جميلة لكنها غالية جداً."],["Das Zimmer ist <mark>sehr</mark> hell.","الغرفة مضيئة جداً."]],
+ err:["Das Zimmer ist großes.","Das Zimmer ist groß."],
+ tip:"sehr = جداً (إيجابي أو محايد)، zu = أكثر من اللازم.",
+ qz:[["Ich kann sie nicht mieten, sie ist ___ teuer.",["sehr","zu","so"],1],["Die Wohnung ist ___ schön, ich nehme sie!",["zu","sehr","zu viel"],1],["Die Küche ist ___.",["klein","kleine","kleinen"],0]]},
+
+{u:10,ar:"الماضي التام مع haben",de:"Perfekt mit haben",
+ x:"أشهر زمن ماضٍ في الكلام. haben في المكان الثاني، والتصريف الثالث (Partizip II) في آخر الجملة.",
+ rule:"haben (Pos. 2) … ge-…-t (Ende)",
+ ex:[["Ich <mark>habe</mark> Fotos <mark>gemacht</mark>.","التقطت صوراً."],["Wir <mark>haben</mark> zusammen <mark>gekocht</mark>.","طبخنا معاً."]],
+ err:["Ich habe gekauft ein Auto.","Ich habe ein Auto gekauft."],
+ tip:"الأفعال القياسية: ge + الجذر + t: spielen → gespielt، kaufen → gekauft.",
+ qz:[["Gestern ___ ich Fußball gespielt.",["bin","habe","hatte"],1],["Was hast du am Wochenende ___? (machen)",["gemacht","machte","gemachen"],0],["Wir ___ viel gelacht.",["sind","haben","hat"],1]]},
+{u:10,ar:"ضمائر الملكية في المفعول به",de:"Possessivartikel im Akkusativ",
+ x:"مثل ein / einen: المذكر يأخذ ‎-en في Akkusativ، والباقي لا يتغيّر.",
+ tbl:[["","mask.","fem.","neutr.","Plural"],["Akk.","meinen","meine","mein","meine"]],
+ ex:[["Ich besuche <mark>meinen</mark> Opa.","أزور جدي."],["Kennst du <mark>unseren</mark> Sohn?","هل تعرف ابننا؟"]],
+ err:["Ich liebe mein Vater.","Ich liebe meinen Vater."],
+ tip:"euer يفقد e عند إضافة نهاية: eure Eltern.",
+ qz:[["Ich rufe ___ Vater an.",["mein","meinen","meinem"],1],["Kennst du ___ Schwester? (mein)",["meinen","meine","mein"],1],["Wir besuchen ___ Großeltern. (unser)",["unser","unsere","unseren"],1]]},
+
+{u:11,ar:"الماضي التام: القياسي والشاذ",de:"Perfekt: regelmäßig und unregelmäßig",
+ x:"الأفعال الشاذة تنتهي بـ ‎-en وأحياناً يتغيّر حرفها. الأفعال المنفصلة: ge في الوسط. أفعال ‎-ieren والبادئات be-, ver- بدون ge.",
+ tbl:[["arbeiten","gearbeitet"],["schreiben","geschrieben"],["sprechen","gesprochen"],["anrufen","angerufen"],["telefonieren","telefoniert"],["besuchen","besucht"]],
+ ex:[["Ich <mark>habe</mark> eine E-Mail <mark>geschrieben</mark>.","كتبت رسالة إلكترونية."],["Sie <mark>hat</mark> den Chef <mark>angerufen</mark>.","اتصلت بالمدير."]],
+ err:["Ich habe angeruft.","Ich habe angerufen."],
+ tip:"احفظ الأفعال الشاذة في ثلاثيات: schreiben – schrieb – geschrieben.",
+ qz:[["Ich habe mit dem Kunden ___. (telefonieren)",["getelefoniert","telefoniert","telefonieren"],1],["Er hat einen Brief ___. (schreiben)",["geschreibt","geschrieben","schrieb"],1],["Ich habe meine Oma ___. (besuchen)",["gebesucht","besucht","besuchen"],1]]},
+{u:11,ar:"المهن للمؤنث",de:"Berufe: -in, -innen",
+ x:"لصيغة المؤنث نضيف ‎-in، وفي الجمع ‎-innen. أحياناً مع Umlaut.",
+ ex:[["der Lehrer → die Lehrer<mark>in</mark> → die Lehrer<mark>innen</mark>","معلم ← معلمة ← معلمات"],["der Arzt → die <mark>Ä</mark>rzt<mark>in</mark>","طبيب ← طبيبة"]],
+ err:["Sie ist Lehrer.","Sie ist Lehrerin."],
+ tip:"Kaufmann → Kauf<b>frau</b> (استثناء).",
+ qz:[["der Koch → die ___",["Kochin","Köchin","Kochfrau"],1],["der Verkäufer → die ___",["Verkäuferin","Verkäuferinnen","Verkauferin"],0],["zwei Lehrerinnen → eine ___",["Lehrerinnen","Lehrerin","Lehrerine"],1]]},
+
+{u:12,ar:"الأفعال المساعدة: müssen و wollen و dürfen",de:"Modalverben",
+ x:"müssen = يجب، wollen = يريد، dürfen = مسموح. نفس قاعدة الجملة: الفعل المساعد ثانياً والمصدر آخراً.",
+ tbl:[["","müssen","wollen","dürfen"],["ich","muss","will","darf"],["du","musst","willst","darfst"],["er/sie","muss","will","darf"],["wir","müssen","wollen","dürfen"],["ihr","müsst","wollt","dürft"]],
+ ex:[["Was <mark>muss</mark> ich zuerst <mark>machen</mark>?","ماذا يجب أن أفعل أولاً؟"],["Hier <mark>darf</mark> man nicht <mark>parken</mark>.","ممنوع الوقوف هنا."]],
+ err:["Ich muss gehen zum Arzt.","Ich muss zum Arzt gehen."],
+ tip:"nicht müssen = ليس ضرورياً (وليس ممنوعاً): Du <b>musst nicht</b> kommen.",
+ qz:[["Du ___ das Gemüse klein schneiden.",["muss","musst","müsst"],1],["Hier ___ man nicht rauchen.",["darf","dürfen","darfst"],0],["Er ___ Arzt werden.",["will","willst","wollen"],0]]},
+{u:12,ar:"الكميات والعبوات",de:"Mengenangaben",
+ x:"بعد الكمية يأتي الاسم مباشرة بدون أداة.",
+ ex:[["ein Kilo <mark>Tomaten</mark>","كيلو طماطم"],["eine Flasche <mark>Wasser</mark>","قارورة ماء"],["200 Gramm <mark>Käse</mark>","200 غرام جبن"]],
+ err:["ein Kilo von Tomaten","ein Kilo Tomaten"],
+ tip:"Wie viel + اسم غير معدود: Wie viel Milch? · Wie viele + جمع: Wie viele Eier?",
+ qz:[["___ Eier brauchen wir?",["Wie viel","Wie viele","Wie"],1],["Ich kaufe eine Flasche ___.",["Milch","die Milch","Milchs"],0],["___ Zucker brauchst du?",["Wie viele","Wie viel","Wie oft"],1]]},
+
+{u:13,ar:"الماضي التام مع sein",de:"Perfekt mit sein",
+ x:"أفعال الحركة من مكان لآخر وأفعال تغيّر الحالة تأخذ sein بدلاً من haben.",
+ tbl:[["gehen","ist gegangen"],["fahren","ist gefahren"],["laufen","ist gelaufen"],["kommen","ist gekommen"],["aufstehen","ist aufgestanden"],["bleiben","ist geblieben"]],
+ ex:[["Ich <mark>bin</mark> zum Arzt <mark>gegangen</mark>.","ذهبت إلى الطبيب."],["Wir <mark>sind</mark> 5 km <mark>gelaufen</mark>.","ركضنا 5 كم."]],
+ err:["Ich habe nach Berlin gefahren.","Ich bin nach Berlin gefahren."],
+ tip:"bleiben و sein يأخذان sein أيضاً: Ich bin zu Hause geblieben.",
+ qz:[["Gestern ___ ich spät aufgestanden.",["habe","bin","war"],1],["Wir ___ nach Hamburg gefahren.",["haben","sind","seid"],1],["Er ist zu Hause ___. (bleiben)",["geblieben","gebleibt","bleibt"],0]]},
+{u:13,ar:"صيغة الأمر: du و ihr و Sie",de:"Imperativ: du, ihr, Sie",
+ x:"du: نحذف ‎-st والضمير. ihr: تصريف ihr بدون ضمير. Sie: الفعل ثم Sie.",
+ tbl:[["","du","ihr","Sie"],["kommen","Komm!","Kommt!","Kommen Sie!"],["nehmen","Nimm!","Nehmt!","Nehmen Sie!"],["sein","Sei!","Seid!","Seien Sie!"]],
+ ex:[["<mark>Trink</mark> viel Wasser!","اشرب ماءً كثيراً!"],["<mark>Macht</mark> Sport!","مارسوا الرياضة!"]],
+ err:["Du trink Wasser!","Trink Wasser!"],
+ tip:"a→ä لا يحدث في الأمر: du schläfst → <b>Schlaf</b> gut!",
+ qz:[["(du, essen) ___ mehr Obst!",["Esst","Iss","Isst"],1],["(ihr, kommen) ___ pünktlich!",["Kommt","Kommen","Komm"],0],["(du, sein) ___ ruhig!",["Bist","Sei","Seid"],1]]},
+{u:13,ar:"فعل sollen",de:"Modalverb sollen",
+ x:"sollen لنقل نصيحة أو أمر من شخص آخر (الطبيب، المدير…)، وللسؤال: هل تريد أن أفعل…؟",
+ tbl:[["ich","soll"],["du","sollst"],["er/sie","soll"],["wir","sollen"],["ihr","sollt"],["sie/Sie","sollen"]],
+ ex:[["Der Arzt sagt, ich <mark>soll</mark> viel <mark>schlafen</mark>.","الطبيب يقول عليّ أن أنام كثيراً."],["<mark>Soll</mark> ich das Fenster <mark>aufmachen</mark>?","هل أفتح النافذة؟"]],
+ err:["Der Arzt sagt, ich muss nicht rauchen. (يقصد: ممنوع)","Der Arzt sagt, ich soll nicht rauchen."],
+ tip:"müssen = ضرورة، sollen = شخص آخر يطلب أو ينصح، dürfen nicht = ممنوع.",
+ qz:[["Meine Ärztin sagt, ich ___ weniger Zucker essen.",["soll","sollst","darf"],0],["___ ich dir helfen?",["Soll","Sollst","Sollen"],0],["Ihr ___ mehr Sport machen.",["sollt","sollen","soll"],0]]},
+
+{u:14,ar:"الصفة قبل الاسم في المفعول به",de:"Adjektivendungen im Akkusativ",
+ x:"عندما تأتي الصفة قبل الاسم تأخذ نهاية. بعد ein/kein/mein في Akkusativ: المذكر ‎-en، المؤنث ‎-e، المحايد ‎-es.",
+ tbl:[["mask.","einen schwarzen Anzug"],["fem.","eine rote Jacke"],["neutr.","ein weißes Hemd"],["Plural","– blaue Schuhe"]],
+ ex:[["Ich suche <mark>einen</mark> warm<mark>en</mark> Pullover.","أبحث عن كنزة دافئة."],["Sie trägt <mark>ein</mark> elegant<mark>es</mark> Kleid.","ترتدي فستاناً أنيقاً."]],
+ err:["Ich suche einen warm Pullover.","Ich suche einen warmen Pullover."],
+ tip:"بعد den/die/das تأخذ الصفة: den neu<b>en</b>, die neu<b>e</b>, das neu<b>e</b>.",
+ qz:[["Ich kaufe einen ___ Mantel.",["schwarz","schwarzen","schwarzer"],1],["Sie trägt eine ___ Bluse.",["weißen","weiße","weißes"],1],["Er kauft ein ___ Hemd.",["blaue","blaues","blauen"],1]]},
+{u:14,ar:"اسم الإشارة dieser",de:"Demonstrativ: dieser, diese, dieses",
+ x:"dieser = هذا (المحدد). يتصرّف مثل der/die/das.",
+ tbl:[["","mask.","fem.","neutr.","Plural"],["Nom.","dieser","diese","dieses","diese"],["Akk.","diesen","diese","dieses","diese"]],
+ ex:[["Wie findest du <mark>diesen</mark> Rock?","ما رأيك في هذه التنورة؟"],["<mark>Diese</mark> Schuhe sind bequem.","هذا الحذاء مريح."]],
+ err:["Ich nehme dieser Rock.","Ich nehme diesen Rock."],
+ tip:"نهاية dieser = نهاية der: der → dies<b>er</b>، den → dies<b>en</b>.",
+ qz:[["Ich nehme ___ Hose.",["dieser","diese","diesen"],1],["Wie findest du ___ Mantel? (der)",["dieser","diesen","dieses"],1],["___ Kleid ist schön.",["Dieser","Dieses","Diese"],1]]},
+
+{u:15,ar:"المقارنة",de:"Komparativ",
+ x:"الصفة + ‎-er + als. صفات قصيرة كثيرة تأخذ Umlaut. للتساوي: so … wie.",
+ tbl:[["schön","schöner"],["warm","wärmer"],["alt","älter"],["gut","besser"],["viel","mehr"],["gern","lieber"]],
+ ex:[["Der Sommer ist <mark>wärmer als</mark> der Frühling.","الصيف أدفأ من الربيع."],["Tunis ist nicht <mark>so</mark> kalt <mark>wie</mark> Berlin.","تونس ليست باردة مثل برلين."]],
+ err:["Berlin ist größer wie Tunis.","Berlin ist größer als Tunis."],
+ tip:"شاذّة احفظها: gut → besser، viel → mehr، gern → lieber.",
+ qz:[["Im Juli ist es ___ als im März.",["heißer","mehr heiß","heißest"],0],["Mein Bruder ist ___ als ich.",["alt","älter","alter"],1],["Tee ist gut, aber Kaffee ist ___.",["guter","besser","mehr gut"],1]]},
+{u:15,ar:"فعل werden (يصبح)",de:"werden",
+ x:"werden = يصبح. يُستعمل كثيراً مع الطقس والمستقبل.",
+ tbl:[["ich","werde"],["du","wirst"],["er/sie/es","wird"],["wir","werden"],["ihr","werdet"],["sie/Sie","werden"]],
+ ex:[["Morgen <mark>wird</mark> es warm.","غداً سيصبح الجو دافئاً."],["Im Herbst <mark>werden</mark> die Tage kürzer.","في الخريف تصبح الأيام أقصر."]],
+ err:["Es werdet kalt.","Es wird kalt."],
+ tip:"du wirst و er wird شاذّتان.",
+ qz:[["Es ___ dunkel.",["werdet","wird","wirst"],1],["Im Winter ___ die Nächte lang.",["wird","werden","werdet"],1],["Was ___ du später? – Ärztin.",["wirst","wird","werdest"],0]]},
+
+{u:16,ar:"إلى أين؟ حروف الاتجاه",de:"Präpositionen: wohin?",
+ x:"nach مع المدن والدول بدون أداة. in + Akkusativ مع الدول والأماكن ذات الأداة. an + Akkusativ للبحر والشاطئ. zu + Dativ للأشخاص والمؤسسات.",
+ tbl:[["nach","nach Berlin, nach Österreich, nach Hause"],["in + Akk.","in die Türkei, in die Berge, ins Kino"],["an + Akk.","an den Strand, ans Meer"],["zu + Dat.","zum Arzt, zur Oma"]],
+ ex:[["Wir fahren <mark>ans</mark> Meer.","نسافر إلى البحر."],["Ich fliege <mark>in die</mark> Schweiz.","أسافر جواً إلى سويسرا."]],
+ err:["Ich fahre nach die Türkei.","Ich fahre in die Türkei."],
+ tip:"Wo? → in Wien / zu Hause. Wohin? → nach Wien / nach Hause.",
+ qz:[["Im Sommer fahre ich ___ Tunesien.",["in","nach","zu"],1],["Wir fahren ___ Meer.",["ans","am","nach"],0],["Ich gehe ___ Arzt.",["nach","zum","in"],1]]}
+];
+
+const KEY="dgr-a1-done";
+let done={};try{done=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}};
+const id=t=>t.u+"|"+t.de;
+const uLabel=u=>u==="S"?"Start":"E"+u;
+const qv=()=>document.getElementById("q").value.trim().toLowerCase();
+const PLATEAUS={1:["S",1,2,3,4],2:[5,6,7,8],3:[9,10,11,12],4:[13,14,15,16]};
+
+function stats(){
+  const n=T.filter(t=>done[id(t)]).length;
+  document.getElementById("nDone").textContent=n;document.getElementById("nAll").textContent=T.length;
+  document.getElementById("pg").style.width=(n/T.length*100)+"%";
+  const c=document.getElementById("chips");c.innerHTML="";
+  UNITS.forEach(U=>{
+    const its=T.filter(t=>t.u===U[0]),full=its.length&&its.every(t=>done[id(t)]);
+    const a=document.createElement("a");a.className="chip"+(full?" full":"");a.href="#u-"+U[0];a.textContent=uLabel(U[0]);
+    a.onclick=e=>{e.preventDefault();if(qv()){document.getElementById("q").value="";render()}document.getElementById("u-"+U[0]).scrollIntoView({behavior:"smooth"})};
+    c.appendChild(a);
+    if(U[4]){const p=document.createElement("a");p.className="chip pl";p.href="#p-"+U[4];p.textContent="P"+U[4];
+      p.onclick=e=>{e.preventDefault();if(qv()){document.getElementById("q").value="";render()}document.getElementById("p-"+U[4]).scrollIntoView({behavior:"smooth"})};c.appendChild(p)}
+  });
+  const f=document.createElement("a");f.className="chip pl";f.href="#final";f.textContent="A1 ✓";
+  f.onclick=e=>{e.preventDefault();if(qv()){document.getElementById("q").value="";render()}document.getElementById("final").scrollIntoView({behavior:"smooth"})};c.appendChild(f);
+}
+
+function quizItem(q,i,onAns){
+  const w=document.createElement("div");w.className="qi";
+  w.innerHTML=`<div class="q"><span class="num">${i}.</span>${q[0]}</div><div class="opts">${q[1].map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join("")}</div>`;
+  w.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    const k=+b.dataset.k,ok=k===q[2];
+    w.querySelectorAll(".opt").forEach(x=>{x.disabled=true});
+    b.classList.add(ok?"right":"wrong");
+    if(!ok)w.querySelector(`.opt[data-k="${q[2]}"]`).classList.add("right");
+    onAns&&onAns(ok);
+  });
+  return w;
+}
+
+function topicEl(t,showU){
+  const d=document.createElement("details");d.className="topic"+(done[id(t)]?" done":"");
+  let h=`<summary class="row"><span class="check" aria-hidden="true">✓</span><span class="t"><strong>${t.ar}</strong><span>${t.de}${showU?" · "+uLabel(t.u):""}</span></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="body"><p>${t.x}</p>`;
+  if(t.rule)h+=`<div class="rule">${t.rule}</div>`;
+  if(t.tbl){const hasHd=t.tbl[0][0]==="";h+=`<div class="tbl"><table>`;
+    t.tbl.forEach((r,i)=>{h+="<tr>"+r.map((c,j)=>{
+      if((i===0&&hasHd)||j===0)return `<th>${c}</th>`;
+      return /[؀-ۿ]/.test(c)?`<td class="ar">${c}</td>`:`<td>${c}</td>`}).join("")+"</tr>"});
+    h+=`</table></div>`}
+  h+=`<div class="h">أمثلة</div><ul class="ex">`+t.ex.map(e=>`<li><span class="de-t">${e[0]}</span><span class="ar">${e[1]}</span></li>`).join("")+`</ul>`;
+  if(t.err)h+=`<div class="h">خطأ شائع</div><div class="err"><div class="w"><span class="sym">✗</span><span class="de-t">${t.err[0]}</span></div><div class="r"><span class="sym">✓</span><span class="de-t">${t.err[1]}</span></div></div>`;
+  if(t.tip)h+=`<div class="tip"><b>نصيحة: </b>${t.tip}</div>`;
+  h+=`<div class="quiz"><div class="h">اختبر نفسك</div></div><div class="qscore" aria-live="polite"></div>`;
+  h+=`<button class="mark">${done[id(t)]?"✓ تعلّمتها":"علّمها: تعلّمتها"}</button></div>`;
+  d.innerHTML=h;
+  const qz=d.querySelector(".quiz"),sc=d.querySelector(".qscore");let ans=0,right=0;
+  t.qz.forEach((q,i)=>qz.appendChild(quizItem(q,i+1,ok=>{ans++;if(ok)right++;
+    if(ans===t.qz.length){sc.textContent=right===t.qz.length?`ممتاز! ${right} من ${right}. يمكنك تعليمها «تعلّمتها».`:`${right} من ${t.qz.length}. راجع الشرح والخطأ الشائع ثم جرّب لاحقاً.`;sc.style.color=right===t.qz.length?"var(--ok)":"var(--ochre)"}})));
+  d.querySelector(".mark").onclick=()=>{
+    if(done[id(t)])delete done[id(t)];else done[id(t)]=1;save();
+    const n=topicEl(t,showU);n.open=d.open;d.replaceWith(n);stats();
+  };
+  return d;
+}
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function testBox(title,sub,pool,max,cls,elId){
+  const box=document.createElement("section");box.className="plateau"+(cls?" "+cls:"");box.id=elId;
+  const intro=()=>{box.innerHTML=`<div class="ph"><div><strong>${title}</strong><div class="sub">${sub}</div></div><button class="btn">ابدأ الاختبار</button></div>`;
+    box.querySelector(".btn").onclick=start};
+  const start=()=>{
+    const qs=shuffle(pool).slice(0,max);let i=0,right=0;const wrong=[];
+    const step=()=>{
+      if(i>=qs.length){
+        const pct=Math.round(right/qs.length*100);
+        box.innerHTML=`<div class="pq result"><div class="big">${right} / ${qs.length}</div><div>${pct>=80?"ممتاز! أنت جاهز للانتقال.":pct>=60?"جيد. راجع القواعد التالية قبل المتابعة:":"تحتاج مراجعة. ركّز على هذه القواعد:"}</div>${wrong.length?`<div class="sub" style="color:var(--muted);font-size:.88rem">${[...new Set(wrong)].join(" · ")}</div>`:""}<div style="display:flex;gap:8px"><button class="btn">أعد الاختبار</button><button class="btn ghost">إغلاق</button></div></div>`;
+        const [a,b]=box.querySelectorAll("button");a.onclick=start;b.onclick=intro;return;
+      }
+      const q=qs[i];
+      box.innerHTML=`<div class="pq"><div class="meta"><span>${title}</span><span>${i+1} / ${qs.length}</span></div><div class="src">${q.t.ar} · ${uLabel(q.t.u)}</div></div>`;
+      const pq=box.querySelector(".pq");
+      pq.appendChild(quizItem(q.q,i+1,ok=>{if(ok)right++;else wrong.push(q.t.ar);
+        const nx=document.createElement("button");nx.className="btn";nx.style.justifySelf="start";nx.textContent=i+1<qs.length?"السؤال التالي":"النتيجة";
+        nx.onclick=()=>{i++;step()};pq.appendChild(nx);nx.focus({preventScroll:true})}));
+    };
+    step();
+  };
+  intro();return box;
+}
+const poolFor=units=>T.filter(t=>units.includes(t.u)).flatMap(t=>t.qz.map(q=>({q,t})));
+
+function render(){
+  stats();
+  const m=document.getElementById("main");m.innerHTML="";
+  const q=qv();const list=document.createElement("div");list.className="list";
+  if(q){
+    const r=T.filter(t=>(t.ar+" "+t.de+" "+t.x).toLowerCase().includes(q));
+    const h=document.createElement("div");h.className="unit";h.innerHTML=`<div class="top"><span class="ttl">نتائج البحث</span><span class="de">${r.length}</span></div>`;list.appendChild(h);
+    r.forEach(t=>list.appendChild(topicEl(t,true)));
+    if(!r.length)list.insertAdjacentHTML("beforeend",`<p class="empty">لا توجد نتائج. جرّب كلمة أخرى بالعربية أو الألمانية.</p>`);
+    m.appendChild(list);return;
+  }
+  UNITS.forEach(U=>{
+    const h=document.createElement("div");h.className="unit";h.id="u-"+U[0];
+    h.innerHTML=`<div class="top"><span class="n">${U[1]}</span><span class="ttl">${U[3]}</span></div><span class="de">${U[2]}</span>`;
+    list.appendChild(h);
+    T.filter(t=>t.u===U[0]).forEach(t=>list.appendChild(topicEl(t,false)));
+    if(U[4]){const P=PLATEAUS[U[4]];list.appendChild(testBox("Plateau "+U[4],`اختبار مراجعة للوحدات ${P.map(uLabel).join("، ")} · 12 سؤالاً`,poolFor(P),12,"","p-"+U[4]))}
+  });
+  list.appendChild(testBox("A1 Abschlusstest",`الاختبار الشامل لكل قواعد A1 · 25 سؤالاً من كل الوحدات`,poolFor(UNITS.map(u=>u[0])),25,"final","final"));
+  m.appendChild(list);
+}
+document.getElementById("q").addEventListener("input",render);
+render();
+</script>
+
+</body>
+</html>
