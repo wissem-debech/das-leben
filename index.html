@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="قواعد اللغة الألمانية A1 مرتّبة حسب كتاب Das Leben، مع أمثلة وأخطاء شائعة واختبارات.">
+<meta name="description" content="German A1 grammar following the Das Leben textbook, in Arabic, English and French.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>دليل القواعد الألمانية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,6 +36,12 @@ header.top{padding-block:26px 12px;display:grid;gap:8px}
 h1{font-family:var(--f-display);font-size:clamp(1.7rem,6vw,2.4rem);line-height:1.25;margin:0;text-wrap:balance}
 h1 .de{font-family:var(--f-de);font-weight:600;color:var(--accent);font-size:.62em;display:block;direction:ltr;text-align:right}
 .lede{color:var(--muted);margin:0;max-width:60ch}
+.toprow{display:flex;justify-content:flex-end;align-items:center}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.langs button{font:inherit;font-size:.82rem;font-weight:600;border:0;background:none;color:var(--muted);padding:4px 13px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.wrap[dir="ltr"] .row .t span,.wrap[dir="ltr"] h1 .de{text-align:left}
+td.tx{font-family:var(--f-body);white-space:normal}
 .stats{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
 .stats b{color:var(--ink);font-variant-numeric:tabular-nums}
 .prog{flex:1;min-width:140px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
@@ -122,16 +128,17 @@ footer{color:var(--muted);font-size:.82rem;margin-top:28px}
 <body>
 <div class="wrap" dir="rtl" lang="ar">
   <header class="top">
-    <h1>دليل القواعد الألمانية<span class="de">Das Leben A1 · Grammatik</span></h1>
-    <p class="lede">قواعد A1 مرتّبة حسب وحدات كتاب Das Leben. في كل قاعدة شرح وأمثلة وخطأ شائع وثلاثة أسئلة، وبعد كل أربع وحدات اختبار Plateau. المستويات التالية قريباً.</p>
-    <div class="stats"><span>تعلّمت <b id="nDone">0</b> من <b id="nAll">0</b></span><div class="prog"><i id="pg"></i></div></div>
+    <div class="toprow"><span class="langs" id="langs" role="group" aria-label="Language"><button data-l="ar" lang="ar">عربي</button><button data-l="en" lang="en">EN</button><button data-l="fr" lang="fr">FR</button></span></div>
+    <h1><span id="h1t">دليل القواعد الألمانية</span><span class="de">Das Leben A1 · Grammatik</span></h1>
+    <p class="lede" id="lede"></p>
+    <div class="stats"><span id="statsTxt"></span><div class="prog"><i id="pg"></i></div></div>
   </header>
   <div class="bar">
     <nav class="chips" id="chips" aria-label="الوحدات"></nav>
     <input class="search" id="q" type="search" placeholder="ابحث عن قاعدة… مثل Akkusativ أو الماضي">
   </div>
   <main id="main"></main>
-  <footer>التقدّم يُحفظ في متصفحك فقط. ترتيب الوحدات حسب Das Leben A1، وقد تختلف تفاصيل صغيرة عن نسختك. راجع مع أستاذك وتدرّب على نماذج telc و ÖSD الرسمية.</footer>
+  <footer id="foot">التقدّم يُحفظ في متصفحك فقط. ترتيب الوحدات حسب Das Leben A1، وقد تختلف تفاصيل صغيرة عن نسختك. راجع مع أستاذك وتدرّب على نماذج telc و ÖSD الرسمية.</footer>
 </div>
 
 <script>
@@ -461,6 +468,161 @@ const T=[
  qz:[["Im Sommer fahre ich ___ Tunesien.",["in","nach","zu"],1],["Wir fahren ___ Meer.",["ans","am","nach"],0],["Ich gehe ___ Arzt.",["nach","zum","in"],1]]}
 ];
 
+T.forEach((t,i)=>{t.i=i});
+
+/* ---------- Interface strings ---------- */
+const UI={
+ ar:{dir:"rtl",doc:"دليل القواعد الألمانية",h1:"دليل القواعد الألمانية",
+  lede:"قواعد A1 مرتّبة حسب وحدات كتاب Das Leben. في كل قاعدة شرح وأمثلة وخطأ شائع وثلاثة أسئلة، وبعد كل أربع وحدات اختبار Plateau. المستويات التالية قريباً.",
+  learned:(n,a)=>`تعلّمت <b>${n}</b> من <b>${a}</b>`,search:"ابحث عن قاعدة… مثل Akkusativ أو الماضي",
+  foot:"التقدّم يُحفظ في متصفحك فقط. ترتيب الوحدات حسب Das Leben A1، وقد تختلف تفاصيل صغيرة عن نسختك. راجع مع أستاذك وتدرّب على نماذج telc و ÖSD الرسمية.",
+  nav:"الوحدات",ex:"أمثلة",err:"خطأ شائع",quiz:"اختبر نفسك",tip:"نصيحة: ",mark:"علّمها: تعلّمتها",marked:"✓ تعلّمتها",
+  perfect:r=>`ممتاز! ${r} من ${r}. يمكنك تعليمها «تعلّمتها».`,partial:(r,n)=>`${r} من ${n}. راجع الشرح والخطأ الشائع ثم جرّب لاحقاً.`,
+  results:"نتائج البحث",empty:"لا توجد نتائج. جرّب كلمة أخرى بالعربية أو الألمانية.",
+  plSub:l=>`اختبار مراجعة للوحدات ${l} · 12 سؤالاً`,finSub:"الاختبار الشامل لكل قواعد A1 · 25 سؤالاً من كل الوحدات",
+  start:"ابدأ الاختبار",r80:"ممتاز! أنت جاهز للانتقال.",r60:"جيد. راجع القواعد التالية قبل المتابعة:",rLow:"تحتاج مراجعة. ركّز على هذه القواعد:",
+  retry:"أعد الاختبار",close:"إغلاق",next:"السؤال التالي",result:"النتيجة",sep:"، "},
+ en:{dir:"ltr",doc:"German Grammar Guide",h1:"German Grammar Guide",
+  lede:"A1 grammar in the order of the Das Leben units. Each rule has an explanation, examples, a common mistake and three questions, with a Plateau test after every four units. More levels coming soon.",
+  learned:(n,a)=>`Learned <b>${n}</b> of <b>${a}</b>`,search:"Search for a rule… e.g. Akkusativ or past tense",
+  foot:"Your progress is saved in this browser only. The units follow Das Leben A1; small details may differ from your edition. Review with your teacher and practise with the official telc and ÖSD sample tests.",
+  nav:"Units",ex:"Examples",err:"Common mistake",quiz:"Test yourself",tip:"Tip: ",mark:"Mark as learned",marked:"✓ Learned",
+  perfect:r=>`Excellent! ${r} of ${r}. You can mark this rule as learned.`,partial:(r,n)=>`${r} of ${n}. Review the explanation and the common mistake, then try again later.`,
+  results:"Search results",empty:"No results. Try another word in English or German.",
+  plSub:l=>`Review test for units ${l} · 12 questions`,finSub:"Final test covering all A1 grammar · 25 questions from every unit",
+  start:"Start the test",r80:"Excellent! You're ready to move on.",r60:"Good. Review these rules before you continue:",rLow:"You need more review. Focus on these rules:",
+  retry:"Retake the test",close:"Close",next:"Next question",result:"See result",sep:", "},
+ fr:{dir:"ltr",doc:"Guide de grammaire allemande",h1:"Guide de grammaire allemande",
+  lede:"La grammaire A1 dans l'ordre des unités de Das Leben. Chaque règle a une explication, des exemples, une erreur fréquente et trois questions, avec un test Plateau toutes les quatre unités. Les autres niveaux arrivent bientôt.",
+  learned:(n,a)=>`Appris <b>${n}</b> sur <b>${a}</b>`,search:"Chercher une règle… ex. Akkusativ ou passé",
+  foot:"Ta progression est enregistrée uniquement dans ce navigateur. Les unités suivent Das Leben A1 ; de petits détails peuvent différer de ton édition. Révise avec ton professeur et entraîne-toi avec les modèles officiels telc et ÖSD.",
+  nav:"Unités",ex:"Exemples",err:"Erreur fréquente",quiz:"Teste-toi",tip:"Astuce : ",mark:"Marquer comme appris",marked:"✓ Appris",
+  perfect:r=>`Excellent ! ${r} sur ${r}. Tu peux marquer cette règle comme apprise.`,partial:(r,n)=>`${r} sur ${n}. Relis l'explication et l'erreur fréquente, puis réessaie plus tard.`,
+  results:"Résultats de la recherche",empty:"Aucun résultat. Essaie un autre mot en français ou en allemand.",
+  plSub:l=>`Test de révision des unités ${l} · 12 questions`,finSub:"Test final sur toute la grammaire A1 · 25 questions de toutes les unités",
+  start:"Commencer le test",r80:"Excellent ! Tu es prêt à continuer.",r60:"Bien. Révise ces règles avant de continuer :",rLow:"Il faut réviser. Concentre-toi sur ces règles :",
+  retry:"Refaire le test",close:"Fermer",next:"Question suivante",result:"Voir le résultat",sep:", "}
+};
+
+/* ---------- Unit titles ---------- */
+const UNIT_TR={
+ en:{S:"Welcome!",1:"Summer course in Leipzig",2:"Möller or Müller?",3:"Working in the café",4:"Delicious food!",5:"Do you have time?",6:"My city",7:"The new job",8:"Free time and hobbies",9:"At home",10:"The Schumann family",11:"A lot of work",12:"Food and drink",13:"Fit and healthy",14:"On trend",15:"Seasons and festivals",16:"Off on holiday!"},
+ fr:{S:"Bienvenue !",1:"Cours d'été à Leipzig",2:"Möller ou Müller ?",3:"Travailler au café",4:"Un délice !",5:"Tu as le temps ?",6:"Ma ville",7:"Le nouveau travail",8:"Loisirs et hobbies",9:"Chez soi",10:"La famille Schumann",11:"Beaucoup de travail",12:"Manger et boire",13:"En forme et en bonne santé",14:"À la mode",15:"Saisons et fêtes",16:"En vacances !"}
+};
+
+/* ---------- Rule translations (same order as T) ---------- */
+const TR={en:[
+{t:"Letters and pronunciation",x:"German is mostly pronounced the way it is written. Learn the special letters ä, ö, ü, ß and the key letter combinations, and remember that all nouns start with a capital letter.",col:["like an open e","o with rounded lips, as if saying e","u with rounded lips, as if saying i","a strong s","“eye” / long “ee”","“sh” / a throaty or soft sound"],ex:["How do you spell that?","Could you spell that, please?"],tip:"ei sounds like “eye” and ie like “ee”: <b>Wein</b> (wine) ≠ <b>Wien</b> (Vienna)."},
+{t:"Articles and gender",x:"Every noun has a gender: masculine der, feminine die, neuter das. The plural is always die. Always learn a noun together with its article.",ex:["the pen, the board, the book","This is a table."],tip:"Nouns ending in -ung, -heit, -keit are feminine, and nouns ending in -chen are neuter. Write each new noun in a colour that matches its gender."},
+{t:"Present tense conjugation",x:"Remove -en from the infinitive and add an ending for each pronoun.",ex:["I'm from Tunisia.","Where do you live?","She is learning German."],tip:"If the stem ends in t or d, add e: du arbeit<b>e</b>st. If it ends in s, ß or z, du only takes -t: du heißt."},
+{t:"Questions and word order",x:"In statements and in questions with a question word, the verb is always in second position. In yes/no questions, the verb comes first.",ex:["I'm learning German.","What are you doing?","Do you speak English?"],tip:"If the sentence starts with a time or place, the subject comes right after the verb: Heute <b>lerne ich</b>."},
+{t:"Informal or formal: du or Sie",x:"Use du with friends, family, children and other students. Use Sie (always capitalised) with strangers, teachers and at work; it is conjugated like the plural.",ex:["What's your name? (informal)","What's your name? (formal)","Where are you from, Ms Weber?"],tip:"In the speaking exam, use <b>Sie</b> with the examiner; you can use du with your partner."},
+{t:"Noun plurals",x:"The plural article is always die. There is no single rule for the endings, so learn each plural with the noun.",ex:["a lamp → two lamps","a book → three books"],tip:"Most feminine nouns take -(e)n, and foreign words take -s. Dictionaries show the plural like this: Buch, ¨-er."},
+{t:"Numbers",x:"From 21 to 99 you say the units first, then the tens: einundzwanzig = “one-and-twenty”.",ex:["My number is …","That costs forty-five euros."],tip:"Careful: dreißig is spelled with ß, not -zig, and sechzehn and siebzehn drop some letters."},
+{t:"Question words",x:"Question words come at the start of the sentence, followed directly by the verb.",col:["who?","what?","where?","where from?","where to?","how?","how much?"],ex:["Who is that?","Where are you from?","What's your phone number?"],tip:"To ask for a name, number or address, use <b>wie</b>, not was."},
+{t:"The verb sein (to be)",x:"The most important verb in the language. It is irregular, so learn it by heart.",ex:["I'm a waiter.","This is my colleague.","Are you students?"],tip:"No article with jobs and nationalities: Ich bin Lehrer. Er ist Tunesier."},
+{t:"Indefinite article and negation: ein and kein",x:"kein negates an indefinite noun and takes exactly the same endings as ein.",ex:["Is that a tea? – No, that's not a tea.","These aren't biscuits."],tip:"ein has no plural, but kein does: keine."},
+{t:"Possessives mein and dein",x:"mein = my, dein = your. They take the same endings as ein / kein.",ex:["This is my café.","This is my boss.","Is that your phone?"],tip:"With feminine and plural nouns, add -e: meine Tasse, meine Freunde."},
+{t:"Polite requests: ich möchte",x:"For ordering in cafés, restaurants and shops. möchte is in second position, followed by a noun, or with an infinitive at the end.",ex:["I'd like a coffee, please.","What would you like to drink?"],tip:"ich möchte is more polite than ich will. Always use it in a café and in the exam."},
+{t:"The direct object (Akkusativ)",x:"The direct object is in the accusative. Only the masculine changes: der→den, ein→einen, kein→keinen.",ex:["I'm eating a salad.","We don't need sugar.","There is an apple cake."],tip:"es gibt, haben, brauchen, essen and nehmen all take the accusative."},
+{t:"Negation: nicht or kein",x:"kein negates an indefinite noun or a noun without an article. nicht negates a verb, an adjective or a definite noun.",ex:["I don't eat meat.","I don't like eating fish.","The soup isn't hot."],tip:"Ask yourself: am I negating a noun without der/die/das? → kein. Otherwise → nicht."},
+{t:"Likes: mögen and gern",x:"mögen + noun: to like something. gern + verb: to like doing something. gern comes after the verb.",ex:["I like pizza.","I like cooking.","He doesn't like eating vegetables."],tip:"gern → lieber → am liebsten: Ich trinke <b>lieber</b> Tee (I prefer tea)."},
+{t:"Verbs with a vowel change",x:"Some verbs change their vowel with du and er/sie/es only.",ex:["What are you having?","She likes eating couscous."],tip:"wir, ihr and sie don't change: wir nehmen, ihr esst."},
+{t:"Time and appointments",x:"am with days and parts of the day, um with clock times, von … bis for a period, im with months and seasons.",ex:["It's half past seven.","It's quarter past three.","It's quarter to ten."],tip:"halb acht = 7:30, not 8:30, because it means “half an hour before eight”."},
+{t:"Separable verbs",x:"Some verbs have a prefix that separates and goes to the end of the sentence: an, auf, aus, ein, mit, zu, fern…",ex:["I get up at 7.","When do you go shopping?","We watch TV in the evening."],tip:"The prefixes be-, ver-, er-, ent-, ge- never separate: verstehen → ich verstehe."},
+{t:"Asking about time: wann, wie lange, wie oft",x:"wann asks when something happens, wie lange asks how long it lasts, and wie oft asks how often.",ex:["When are you free? – On Friday.","How long is the film? – Two hours.","How often do you go to the cinema?"],tip:"The answer to wann has am/um; the answer to wie lange is a length of time (Stunden, Tage)."},
+{t:"Possessives (all forms)",x:"mein, dein, sein (his), ihr (her), unser, euer, ihr/Ihr. They all take the endings of ein.",ex:["This is our city.","Anna and her brother","Is this your car? (formal)"],tip:"sein for a male owner, ihr for a female owner. Ihr with a capital = your (formal)."},
+{t:"Formal imperative",x:"For polite instructions or directions: verb first, then Sie.",ex:["Go straight ahead.","Turn right at the traffic lights.","Take the underground."],err0:"Sie gehen geradeaus! (as an order)",tip:"Add bitte to make it softer: Warten Sie <b>bitte</b> hier."},
+{t:"Prepositions of place with the dative",x:"To answer wo? (where?), use prepositions of place with the dative.",ex:["The phone is on the table.","The lamp is next to the door.","I work in the office."],tip:"in dem = <b>im</b>, an dem = <b>am</b>. Feminine in the dative becomes <b>der</b>."},
+{t:"Past: war and hatte",x:"To talk about the past we use war (was) and hatte (had), even in everyday speech.",ex:["Yesterday I was at the cinema.","We had a lot of fun."],tip:"No ending with ich and er/sie: ich war, er war."},
+{t:"The verb können",x:"können = can / to know how to. The modal verb is in second position and the main verb goes to the end as an infinitive.",ex:["I can swim well.","Can you play the guitar?"],tip:"No ending with ich and er/sie: ich kann, er kann."},
+{t:"Adverbs of frequency",x:"To say how often, from most to least.",ex:["I often play football.","He never goes to the theatre."],tip:"They can start the sentence; then the verb comes next: <b>Manchmal lese</b> ich abends."},
+{t:"Compound nouns",x:"German builds new nouns out of other words. The last word is the base and decides the article.",ex:["kitchen table","bathtub"],tip:"The article always comes from the last word."},
+{t:"Place prepositions: where? and where to?",x:"Nine prepositions take the dative for position (wo?) and the accusative for movement towards a place (wohin?).",ex:["I put the sofa against the wall.","The sofa is against the wall."],tip:"Movement verbs stellen, legen → accusative. Position verbs stehen, liegen → dative."},
+{t:"Adjectives after sein, and zu",x:"An adjective after sein takes no ending. zu + adjective = too (a negative meaning).",ex:["The flat is nice but too expensive.","The room is very bright."],tip:"sehr = very (positive or neutral), zu = too much."},
+{t:"Perfect tense with haben",x:"The most common past tense in speech. haben is in second position and the past participle (Partizip II) goes at the end.",ex:["I took photos.","We cooked together."],tip:"Regular verbs: ge + stem + t: spielen → gespielt, kaufen → gekauft."},
+{t:"Possessives in the accusative",x:"Like ein / einen: the masculine takes -en in the accusative; the others don't change.",ex:["I'm visiting my grandad.","Do you know our son?"],tip:"euer drops its e when it takes an ending: eure Eltern."},
+{t:"Perfect tense: regular and irregular",x:"Irregular verbs end in -en and sometimes change their vowel. Separable verbs put ge in the middle. Verbs in -ieren and verbs with be-, ver- take no ge.",ex:["I wrote an e-mail.","She called the boss."],tip:"Learn irregular verbs in threes: schreiben – schrieb – geschrieben."},
+{t:"Female job titles",x:"For the feminine form add -in, and -innen in the plural, sometimes with an umlaut.",ex:["teacher (m) → teacher (f) → teachers (f)","doctor (m) → doctor (f)"],tip:"Kaufmann → Kauf<b>frau</b> (an exception)."},
+{t:"Modal verbs: müssen, wollen, dürfen",x:"müssen = must, wollen = to want, dürfen = to be allowed. Same word order: modal verb second, infinitive last.",ex:["What do I have to do first?","You can't park here."],tip:"nicht müssen = don't have to (not “forbidden”): Du <b>musst nicht</b> kommen."},
+{t:"Quantities and packaging",x:"After a quantity, the noun follows directly, without an article.",ex:["a kilo of tomatoes","a bottle of water","200 grams of cheese"],tip:"Wie viel + uncountable noun: Wie viel Milch? · Wie viele + plural: Wie viele Eier?"},
+{t:"Perfect tense with sein",x:"Verbs of movement from one place to another and verbs of change of state take sein instead of haben.",ex:["I went to the doctor.","We ran 5 km."],tip:"bleiben and sein also take sein: Ich bin zu Hause geblieben."},
+{t:"Imperative: du, ihr and Sie",x:"du: drop -st and the pronoun. ihr: the ihr form without the pronoun. Sie: the verb, then Sie.",ex:["Drink lots of water!","Do sport! (to a group)"],tip:"a→ä doesn't happen in the imperative: du schläfst → <b>Schlaf</b> gut!"},
+{t:"The verb sollen",x:"sollen passes on advice or an order from someone else (the doctor, the boss…), and is used to offer: “shall I…?”.",ex:["The doctor says I should sleep a lot.","Shall I open the window?"],err0:"Der Arzt sagt, ich muss nicht rauchen. (meaning: not allowed)",tip:"müssen = necessity, sollen = someone else asks or advises, dürfen nicht = forbidden."},
+{t:"Adjectives before a noun in the accusative",x:"An adjective before a noun takes an ending. After ein/kein/mein in the accusative: masculine -en, feminine -e, neuter -es.",ex:["I'm looking for a warm jumper.","She's wearing an elegant dress."],tip:"After den/die/das the adjective takes: den neu<b>en</b>, die neu<b>e</b>, das neu<b>e</b>."},
+{t:"The demonstrative dieser",x:"dieser = this (specific one). It takes the same endings as der/die/das.",ex:["What do you think of this skirt?","These shoes are comfortable."],tip:"dieser ends like der: der → dies<b>er</b>, den → dies<b>en</b>."},
+{t:"Comparatives",x:"Adjective + -er + als. Many short adjectives take an umlaut. For equality: so … wie.",ex:["Summer is warmer than spring.","Tunis isn't as cold as Berlin."],tip:"Irregular ones to learn: gut → besser, viel → mehr, gern → lieber."},
+{t:"The verb werden (to become)",x:"werden = to become. It is often used for the weather and the future.",ex:["Tomorrow it'll be warm.","In autumn the days get shorter."],tip:"du wirst and er wird are irregular."},
+{t:"Where to? Prepositions of direction",x:"nach with cities and countries that have no article. in + accusative with countries and places that have an article. an + accusative for the sea and the beach. zu + dative for people and institutions.",ex:["We're going to the seaside.","I'm flying to Switzerland."],tip:"Wo? → in Wien / zu Hause. Wohin? → nach Wien / nach Hause."}
+],fr:[
+{t:"Lettres et prononciation",x:"L'allemand se prononce en général comme il s'écrit. Apprends les lettres spéciales ä, ö, ü, ß et les combinaisons importantes, et n'oublie pas que tous les noms prennent une majuscule.",col:["comme un « è » ouvert","o avec les lèvres arrondies, en disant « é »","comme le « u » français","un s fort","« aï » / « i » long","« ch » / son guttural ou doux"],ex:["Comment ça s'écrit ?","Pouvez-vous l'épeler, s'il vous plaît ?"],tip:"ei se prononce « aï » et ie se prononce « i » : <b>Wein</b> (vin) ≠ <b>Wien</b> (Vienne)."},
+{t:"Articles et genre",x:"Chaque nom a un genre : masculin der, féminin die, neutre das. Le pluriel est toujours die. Apprends toujours un nom avec son article.",ex:["le stylo, le tableau, le livre","C'est une table."],tip:"Les noms en -ung, -heit, -keit sont féminins, ceux en -chen sont neutres. Écris chaque nouveau nom dans une couleur selon son genre."},
+{t:"Conjugaison au présent",x:"On enlève -en de l'infinitif et on ajoute une terminaison selon le pronom.",ex:["Je viens de Tunisie.","Où habites-tu ?","Elle apprend l'allemand."],tip:"Si le radical se termine par t ou d, on ajoute e : du arbeit<b>e</b>st. S'il se termine par s, ß ou z, du prend seulement -t : du heißt."},
+{t:"Questions et ordre des mots",x:"Dans une phrase affirmative et dans une question avec un mot interrogatif, le verbe est toujours en deuxième position. Dans une question oui/non, le verbe vient en premier.",ex:["J'apprends l'allemand.","Que fais-tu ?","Parles-tu anglais ?"],tip:"Si la phrase commence par le temps ou le lieu, le sujet vient juste après le verbe : Heute <b>lerne ich</b>."},
+{t:"Tutoiement ou vouvoiement : du ou Sie",x:"du pour les amis, la famille, les enfants et entre étudiants. Sie (toujours avec majuscule) pour les inconnus, les professeurs et au travail ; il se conjugue comme le pluriel.",ex:["Comment tu t'appelles ? (familier)","Comment vous appelez-vous ? (poli)","D'où venez-vous, Madame Weber ?"],tip:"À l'oral de l'examen, utilise <b>Sie</b> avec l'examinateur ; avec ton partenaire, du est possible."},
+{t:"Le pluriel des noms",x:"L'article au pluriel est toujours die. Il n'y a pas une seule règle pour les terminaisons : apprends le pluriel avec le nom.",ex:["une lampe → deux lampes","un livre → trois livres"],tip:"La plupart des noms féminins prennent -(e)n, les mots étrangers prennent -s. Dans le dictionnaire, le pluriel est noté ainsi : Buch, ¨-er."},
+{t:"Les nombres",x:"De 21 à 99, on dit d'abord l'unité puis la dizaine : einundzwanzig = « un-et-vingt ».",ex:["Mon numéro est …","Ça coûte quarante-cinq euros."],tip:"Attention : dreißig s'écrit avec ß et non -zig, et sechzehn et siebzehn perdent des lettres."},
+{t:"Les mots interrogatifs",x:"Les mots interrogatifs se placent en début de phrase, suivis directement du verbe.",col:["qui ?","quoi ?","où ?","d'où ?","où (direction) ?","comment ?","combien ?"],ex:["Qui est-ce ?","D'où viens-tu ?","Quel est ton numéro de téléphone ?"],tip:"Pour demander le nom, le numéro ou l'adresse, on utilise <b>wie</b> et non was."},
+{t:"Le verbe sein (être)",x:"Le verbe le plus important de la langue. Il est irrégulier, il faut l'apprendre par cœur.",ex:["Je suis serveur.","C'est mon collègue.","Vous êtes étudiants ?"],tip:"Pas d'article avec les métiers et les nationalités : Ich bin Lehrer. Er ist Tunesier."},
+{t:"Article indéfini et négation : ein et kein",x:"kein nie un nom indéfini et se décline exactement comme ein.",ex:["C'est un thé ? – Non, ce n'est pas un thé.","Ce ne sont pas des biscuits."],tip:"ein n'a pas de pluriel, mais kein oui : keine."},
+{t:"Les possessifs mein et dein",x:"mein = mon/ma, dein = ton/ta. Ils se déclinent comme ein / kein.",ex:["C'est mon café.","C'est ma cheffe.","C'est ton portable ?"],tip:"Avec un nom féminin ou pluriel, on ajoute -e : meine Tasse, meine Freunde."},
+{t:"La demande polie : ich möchte",x:"Pour commander au café, au restaurant et dans les magasins. möchte est en deuxième position, suivi d'un nom, ou avec un infinitif à la fin.",ex:["Je voudrais un café, s'il vous plaît.","Que voulez-vous boire ?"],tip:"ich möchte est plus poli que ich will. Utilise-le toujours au café et à l'examen."},
+{t:"Le complément d'objet direct (Akkusativ)",x:"Le COD est à l'accusatif. Seul le masculin change : der→den, ein→einen, kein→keinen.",ex:["Je mange une salade.","Nous n'avons pas besoin de sucre.","Il y a un gâteau aux pommes."],tip:"es gibt, haben, brauchen, essen et nehmen prennent tous l'accusatif."},
+{t:"La négation : nicht ou kein",x:"kein nie un nom indéfini ou un nom sans article. nicht nie un verbe, un adjectif ou un nom défini.",ex:["Je ne mange pas de viande.","Je n'aime pas manger du poisson.","La soupe n'est pas chaude."],tip:"Demande-toi : est-ce que je nie un nom sans der/die/das ? → kein. Sinon → nicht."},
+{t:"Les goûts : mögen et gern",x:"mögen + nom : aimer quelque chose. gern + verbe : aimer faire quelque chose. gern se place après le verbe.",ex:["J'aime la pizza.","J'aime cuisiner.","Il n'aime pas manger de légumes."],tip:"gern → lieber → am liebsten : Ich trinke <b>lieber</b> Tee (je préfère le thé)."},
+{t:"Les verbes à changement de voyelle",x:"Certains verbes changent de voyelle uniquement avec du et er/sie/es.",ex:["Qu'est-ce que tu prends ?","Elle aime manger du couscous."],tip:"wir, ihr et sie ne changent pas : wir nehmen, ihr esst."},
+{t:"L'heure et les rendez-vous",x:"am avec les jours et les moments de la journée, um avec l'heure, von … bis pour une durée, im avec les mois et les saisons.",ex:["Il est sept heures et demie.","Il est trois heures et quart.","Il est dix heures moins le quart."],tip:"halb acht = 7h30 et non 8h30, car cela veut dire « une demi-heure avant huit heures »."},
+{t:"Les verbes séparables",x:"Certains verbes ont un préfixe qui se sépare et va à la fin de la phrase : an, auf, aus, ein, mit, zu, fern…",ex:["Je me lève à 7 heures.","Quand fais-tu les courses ?","Le soir, nous regardons la télé."],tip:"Les préfixes be-, ver-, er-, ent-, ge- ne se séparent jamais : verstehen → ich verstehe."},
+{t:"Questions de temps : wann, wie lange, wie oft",x:"wann demande quand, wie lange demande combien de temps, et wie oft demande combien de fois.",ex:["Quand as-tu le temps ? – Vendredi.","Combien de temps dure le film ? – Deux heures.","Tu vas au cinéma combien de fois ?"],tip:"La réponse à wann contient am/um ; la réponse à wie lange est une durée (Stunden, Tage)."},
+{t:"Les possessifs (toutes les formes)",x:"mein, dein, sein (son, à lui), ihr (son, à elle), unser, euer, ihr/Ihr. Ils prennent tous les terminaisons de ein.",ex:["C'est notre ville.","Anna et son frère","C'est votre voiture ?"],tip:"sein si le possesseur est masculin, ihr s'il est féminin. Ihr avec majuscule = votre (poli)."},
+{t:"L'impératif poli",x:"Pour donner des consignes ou indiquer le chemin poliment : le verbe d'abord, puis Sie.",ex:["Allez tout droit.","Tournez à droite au feu.","Prenez le métro."],err0:"Sie gehen geradeaus! (comme ordre)",tip:"Ajoute bitte pour être plus aimable : Warten Sie <b>bitte</b> hier."},
+{t:"Prépositions de lieu avec le datif",x:"Pour répondre à wo? (où ?), on utilise les prépositions de lieu avec le datif.",ex:["Le portable est sur la table.","La lampe est à côté de la porte.","Je travaille au bureau."],tip:"in dem = <b>im</b>, an dem = <b>am</b>. Au datif, le féminin devient <b>der</b>."},
+{t:"Le passé : war et hatte",x:"Pour parler du passé, on utilise war (était) et hatte (avait), même à l'oral.",ex:["Hier, j'étais au cinéma.","On s'est bien amusés."],tip:"Pas de terminaison avec ich et er/sie : ich war, er war."},
+{t:"Le verbe können",x:"können = pouvoir / savoir faire. Le modal est en deuxième position et le verbe principal va à la fin, à l'infinitif.",ex:["Je sais bien nager.","Tu sais jouer de la guitare ?"],tip:"Pas de terminaison avec ich et er/sie : ich kann, er kann."},
+{t:"Les adverbes de fréquence",x:"Pour dire combien de fois, du plus fréquent au moins fréquent.",ex:["Je joue souvent au foot.","Il ne va jamais au théâtre."],tip:"Ils peuvent commencer la phrase ; le verbe vient alors juste après : <b>Manchmal lese</b> ich abends."},
+{t:"Les noms composés",x:"L'allemand forme de nouveaux noms en assemblant des mots. Le dernier mot est la base et donne l'article.",ex:["la table de cuisine","la baignoire"],tip:"L'article vient toujours du dernier mot."},
+{t:"Prépositions de lieu : où ? et vers où ?",x:"Neuf prépositions prennent le datif pour la position (wo?) et l'accusatif pour le mouvement vers un lieu (wohin?).",ex:["Je mets le canapé contre le mur.","Le canapé est contre le mur."],tip:"Verbes de mouvement stellen, legen → accusatif. Verbes de position stehen, liegen → datif."},
+{t:"L'adjectif après sein, et zu",x:"Après sein, l'adjectif ne prend pas de terminaison. zu + adjectif = trop (sens négatif).",ex:["L'appartement est beau mais trop cher.","La chambre est très claire."],tip:"sehr = très (positif ou neutre), zu = trop."},
+{t:"Le Perfekt avec haben",x:"Le passé le plus utilisé à l'oral. haben est en deuxième position et le participe passé (Partizip II) va à la fin.",ex:["J'ai pris des photos.","Nous avons cuisiné ensemble."],tip:"Verbes réguliers : ge + radical + t : spielen → gespielt, kaufen → gekauft."},
+{t:"Les possessifs à l'accusatif",x:"Comme ein / einen : le masculin prend -en à l'accusatif, le reste ne change pas.",ex:["Je rends visite à mon grand-père.","Tu connais notre fils ?"],tip:"euer perd son e quand il prend une terminaison : eure Eltern."},
+{t:"Le Perfekt : réguliers et irréguliers",x:"Les verbes irréguliers finissent en -en et changent parfois de voyelle. Les verbes séparables mettent ge au milieu. Les verbes en -ieren et avec be-, ver- n'ont pas de ge.",ex:["J'ai écrit un e-mail.","Elle a appelé le chef."],tip:"Apprends les verbes irréguliers par trois : schreiben – schrieb – geschrieben."},
+{t:"Les métiers au féminin",x:"Pour le féminin, on ajoute -in, et -innen au pluriel, parfois avec un umlaut.",ex:["enseignant → enseignante → enseignantes","médecin (homme) → médecin (femme)"],tip:"Kaufmann → Kauf<b>frau</b> (exception)."},
+{t:"Les verbes de modalité : müssen, wollen, dürfen",x:"müssen = devoir, wollen = vouloir, dürfen = avoir le droit. Même ordre : le modal en deuxième position, l'infinitif à la fin.",ex:["Qu'est-ce que je dois faire d'abord ?","Il est interdit de se garer ici."],tip:"nicht müssen = ne pas être obligé (et non « interdit ») : Du <b>musst nicht</b> kommen."},
+{t:"Les quantités et emballages",x:"Après une quantité, le nom suit directement, sans article.",ex:["un kilo de tomates","une bouteille d'eau","200 grammes de fromage"],tip:"Wie viel + nom indénombrable : Wie viel Milch? · Wie viele + pluriel : Wie viele Eier?"},
+{t:"Le Perfekt avec sein",x:"Les verbes de déplacement d'un lieu à un autre et les verbes de changement d'état prennent sein au lieu de haben.",ex:["Je suis allé chez le médecin.","Nous avons couru 5 km."],tip:"bleiben et sein prennent aussi sein : Ich bin zu Hause geblieben."},
+{t:"L'impératif : du, ihr et Sie",x:"du : on enlève -st et le pronom. ihr : la forme de ihr sans le pronom. Sie : le verbe, puis Sie.",ex:["Bois beaucoup d'eau !","Faites du sport !"],tip:"Pas de a→ä à l'impératif : du schläfst → <b>Schlaf</b> gut!"},
+{t:"Le verbe sollen",x:"sollen transmet un conseil ou un ordre d'une autre personne (le médecin, le chef…), et sert à proposer : « je… ? ».",ex:["Le médecin dit que je dois beaucoup dormir.","J'ouvre la fenêtre ?"],err0:"Der Arzt sagt, ich muss nicht rauchen. (sens : interdit)",tip:"müssen = nécessité, sollen = quelqu'un d'autre demande ou conseille, dürfen nicht = interdit."},
+{t:"L'adjectif devant le nom à l'accusatif",x:"Devant un nom, l'adjectif prend une terminaison. Après ein/kein/mein à l'accusatif : masculin -en, féminin -e, neutre -es.",ex:["Je cherche un pull chaud.","Elle porte une robe élégante."],tip:"Après den/die/das, l'adjectif prend : den neu<b>en</b>, die neu<b>e</b>, das neu<b>e</b>."},
+{t:"Le démonstratif dieser",x:"dieser = ce/cette (celui-ci). Il se décline comme der/die/das.",ex:["Comment tu trouves cette jupe ?","Ces chaussures sont confortables."],tip:"dieser se termine comme der : der → dies<b>er</b>, den → dies<b>en</b>."},
+{t:"Le comparatif",x:"Adjectif + -er + als. Beaucoup d'adjectifs courts prennent un umlaut. Pour l'égalité : so … wie.",ex:["L'été est plus chaud que le printemps.","Tunis n'est pas aussi froide que Berlin."],tip:"Irréguliers à retenir : gut → besser, viel → mehr, gern → lieber."},
+{t:"Le verbe werden (devenir)",x:"werden = devenir. Il est très utilisé pour la météo et le futur.",ex:["Demain, il va faire chaud.","En automne, les jours raccourcissent."],tip:"du wirst et er wird sont irréguliers."},
+{t:"Vers où ? Prépositions de direction",x:"nach avec les villes et les pays sans article. in + accusatif avec les pays et les lieux qui ont un article. an + accusatif pour la mer et la plage. zu + datif pour les personnes et les institutions.",ex:["Nous allons à la mer.","Je prends l'avion pour la Suisse."],tip:"Wo? → in Wien / zu Hause. Wohin? → nach Wien / nach Hause."}
+]};
+
+/* ---------- Language state ---------- */
+let lang="ar";try{const s=localStorage.getItem("dgr-lang");if(UI[s])lang=s}catch(e){}
+const S=()=>UI[lang];
+function loc(t){
+  if(lang==="ar")return{title:t.ar,x:t.x,tip:t.tip,ex:t.ex.map(e=>e[1]),err0:t.err&&t.err[0],col:null};
+  const r=TR[lang][t.i];return{title:r.t,x:r.x,tip:r.tip,ex:r.ex,err0:r.err0||(t.err&&t.err[0]),col:r.col||null};
+}
+const unitTitle=U=>lang==="ar"?U[3]:UNIT_TR[lang][U[0]];
+function applyLang(){
+  const u=S(),w=document.querySelector(".wrap");
+  w.dir=u.dir;w.lang=lang;document.documentElement.lang=lang;document.documentElement.dir=u.dir;
+  document.title=u.doc;
+  document.getElementById("h1t").textContent=u.h1;
+  document.getElementById("lede").textContent=u.lede;
+  document.getElementById("foot").textContent=u.foot;
+  document.getElementById("q").placeholder=u.search;
+  document.getElementById("chips").setAttribute("aria-label",u.nav);
+  document.querySelectorAll("#langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang?"true":"false"));
+}
+document.querySelectorAll("#langs button").forEach(b=>b.onclick=()=>{
+  lang=b.dataset.l;try{localStorage.setItem("dgr-lang",lang)}catch(e){}
+  applyLang();render();
+});
+
 const KEY="dgr-a1-done";
 let done={};try{done=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}};
@@ -469,21 +631,19 @@ const uLabel=u=>u==="S"?"Start":"E"+u;
 const qv=()=>document.getElementById("q").value.trim().toLowerCase();
 const PLATEAUS={1:["S",1,2,3,4],2:[5,6,7,8],3:[9,10,11,12],4:[13,14,15,16]};
 
+function jump(target){if(qv()){document.getElementById("q").value="";render()}document.getElementById(target).scrollIntoView({behavior:"smooth"})}
 function stats(){
   const n=T.filter(t=>done[id(t)]).length;
-  document.getElementById("nDone").textContent=n;document.getElementById("nAll").textContent=T.length;
+  document.getElementById("statsTxt").innerHTML=S().learned(n,T.length);
   document.getElementById("pg").style.width=(n/T.length*100)+"%";
   const c=document.getElementById("chips");c.innerHTML="";
+  const chip=(cls,href,txt)=>{const a=document.createElement("a");a.className=cls;a.href="#"+href;a.textContent=txt;a.onclick=e=>{e.preventDefault();jump(href)};c.appendChild(a)};
   UNITS.forEach(U=>{
     const its=T.filter(t=>t.u===U[0]),full=its.length&&its.every(t=>done[id(t)]);
-    const a=document.createElement("a");a.className="chip"+(full?" full":"");a.href="#u-"+U[0];a.textContent=uLabel(U[0]);
-    a.onclick=e=>{e.preventDefault();if(qv()){document.getElementById("q").value="";render()}document.getElementById("u-"+U[0]).scrollIntoView({behavior:"smooth"})};
-    c.appendChild(a);
-    if(U[4]){const p=document.createElement("a");p.className="chip pl";p.href="#p-"+U[4];p.textContent="P"+U[4];
-      p.onclick=e=>{e.preventDefault();if(qv()){document.getElementById("q").value="";render()}document.getElementById("p-"+U[4]).scrollIntoView({behavior:"smooth"})};c.appendChild(p)}
+    chip("chip"+(full?" full":""),"u-"+U[0],uLabel(U[0]));
+    if(U[4])chip("chip pl","p-"+U[4],"P"+U[4]);
   });
-  const f=document.createElement("a");f.className="chip pl";f.href="#final";f.textContent="A1 ✓";
-  f.onclick=e=>{e.preventDefault();if(qv()){document.getElementById("q").value="";render()}document.getElementById("final").scrollIntoView({behavior:"smooth"})};c.appendChild(f);
+  chip("chip pl","final","A1 ✓");
 }
 
 function quizItem(q,i,onAns){
@@ -500,23 +660,25 @@ function quizItem(q,i,onAns){
 }
 
 function topicEl(t,showU){
+  const u=S(),L=loc(t);
   const d=document.createElement("details");d.className="topic"+(done[id(t)]?" done":"");
-  let h=`<summary class="row"><span class="check" aria-hidden="true">✓</span><span class="t"><strong>${t.ar}</strong><span>${t.de}${showU?" · "+uLabel(t.u):""}</span></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="body"><p>${t.x}</p>`;
+  let h=`<summary class="row"><span class="check" aria-hidden="true">✓</span><span class="t"><strong>${L.title}</strong><span>${t.de}${showU?" · "+uLabel(t.u):""}</span></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="body"><p>${L.x}</p>`;
   if(t.rule)h+=`<div class="rule">${t.rule}</div>`;
   if(t.tbl){const hasHd=t.tbl[0][0]==="";h+=`<div class="tbl"><table>`;
     t.tbl.forEach((r,i)=>{h+="<tr>"+r.map((c,j)=>{
       if((i===0&&hasHd)||j===0)return `<th>${c}</th>`;
-      return /[؀-ۿ]/.test(c)?`<td class="ar">${c}</td>`:`<td>${c}</td>`}).join("")+"</tr>"});
+      if(/[؀-ۿ]/.test(c))return lang==="ar"?`<td class="ar">${c}</td>`:`<td class="tx">${L.col?L.col[i]:c}</td>`;
+      return `<td>${c}</td>`}).join("")+"</tr>"});
     h+=`</table></div>`}
-  h+=`<div class="h">أمثلة</div><ul class="ex">`+t.ex.map(e=>`<li><span class="de-t">${e[0]}</span><span class="ar">${e[1]}</span></li>`).join("")+`</ul>`;
-  if(t.err)h+=`<div class="h">خطأ شائع</div><div class="err"><div class="w"><span class="sym">✗</span><span class="de-t">${t.err[0]}</span></div><div class="r"><span class="sym">✓</span><span class="de-t">${t.err[1]}</span></div></div>`;
-  if(t.tip)h+=`<div class="tip"><b>نصيحة: </b>${t.tip}</div>`;
-  h+=`<div class="quiz"><div class="h">اختبر نفسك</div></div><div class="qscore" aria-live="polite"></div>`;
-  h+=`<button class="mark">${done[id(t)]?"✓ تعلّمتها":"علّمها: تعلّمتها"}</button></div>`;
+  h+=`<div class="h">${u.ex}</div><ul class="ex">`+t.ex.map((e,k)=>`<li><span class="de-t">${e[0]}</span><span class="ar">${L.ex[k]}</span></li>`).join("")+`</ul>`;
+  if(t.err)h+=`<div class="h">${u.err}</div><div class="err"><div class="w"><span class="sym">✗</span><span class="de-t">${L.err0}</span></div><div class="r"><span class="sym">✓</span><span class="de-t">${t.err[1]}</span></div></div>`;
+  if(L.tip)h+=`<div class="tip"><b>${u.tip}</b>${L.tip}</div>`;
+  h+=`<div class="quiz"><div class="h">${u.quiz}</div></div><div class="qscore" aria-live="polite"></div>`;
+  h+=`<button class="mark">${done[id(t)]?u.marked:u.mark}</button></div>`;
   d.innerHTML=h;
   const qz=d.querySelector(".quiz"),sc=d.querySelector(".qscore");let ans=0,right=0;
   t.qz.forEach((q,i)=>qz.appendChild(quizItem(q,i+1,ok=>{ans++;if(ok)right++;
-    if(ans===t.qz.length){sc.textContent=right===t.qz.length?`ممتاز! ${right} من ${right}. يمكنك تعليمها «تعلّمتها».`:`${right} من ${t.qz.length}. راجع الشرح والخطأ الشائع ثم جرّب لاحقاً.`;sc.style.color=right===t.qz.length?"var(--ok)":"var(--ochre)"}})));
+    if(ans===t.qz.length){const all=right===t.qz.length;sc.textContent=all?u.perfect(right):u.partial(right,t.qz.length);sc.style.color=all?"var(--ok)":"var(--ochre)"}})));
   d.querySelector(".mark").onclick=()=>{
     if(done[id(t)])delete done[id(t)];else done[id(t)]=1;save();
     const n=topicEl(t,showU);n.open=d.open;d.replaceWith(n);stats();
@@ -526,22 +688,23 @@ function topicEl(t,showU){
 
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function testBox(title,sub,pool,max,cls,elId){
+  const u=S();
   const box=document.createElement("section");box.className="plateau"+(cls?" "+cls:"");box.id=elId;
-  const intro=()=>{box.innerHTML=`<div class="ph"><div><strong>${title}</strong><div class="sub">${sub}</div></div><button class="btn">ابدأ الاختبار</button></div>`;
+  const intro=()=>{box.innerHTML=`<div class="ph"><div><strong>${title}</strong><div class="sub">${sub}</div></div><button class="btn">${u.start}</button></div>`;
     box.querySelector(".btn").onclick=start};
   const start=()=>{
     const qs=shuffle(pool).slice(0,max);let i=0,right=0;const wrong=[];
     const step=()=>{
       if(i>=qs.length){
         const pct=Math.round(right/qs.length*100);
-        box.innerHTML=`<div class="pq result"><div class="big">${right} / ${qs.length}</div><div>${pct>=80?"ممتاز! أنت جاهز للانتقال.":pct>=60?"جيد. راجع القواعد التالية قبل المتابعة:":"تحتاج مراجعة. ركّز على هذه القواعد:"}</div>${wrong.length?`<div class="sub" style="color:var(--muted);font-size:.88rem">${[...new Set(wrong)].join(" · ")}</div>`:""}<div style="display:flex;gap:8px"><button class="btn">أعد الاختبار</button><button class="btn ghost">إغلاق</button></div></div>`;
+        box.innerHTML=`<div class="pq result"><div class="big">${right} / ${qs.length}</div><div>${pct>=80?u.r80:pct>=60?u.r60:u.rLow}</div>${wrong.length?`<div class="sub" style="color:var(--muted);font-size:.88rem">${[...new Set(wrong)].join(" · ")}</div>`:""}<div style="display:flex;gap:8px"><button class="btn">${u.retry}</button><button class="btn ghost">${u.close}</button></div></div>`;
         const [a,b]=box.querySelectorAll("button");a.onclick=start;b.onclick=intro;return;
       }
       const q=qs[i];
-      box.innerHTML=`<div class="pq"><div class="meta"><span>${title}</span><span>${i+1} / ${qs.length}</span></div><div class="src">${q.t.ar} · ${uLabel(q.t.u)}</div></div>`;
+      box.innerHTML=`<div class="pq"><div class="meta"><span>${title}</span><span>${i+1} / ${qs.length}</span></div><div class="src">${loc(q.t).title} · ${uLabel(q.t.u)}</div></div>`;
       const pq=box.querySelector(".pq");
-      pq.appendChild(quizItem(q.q,i+1,ok=>{if(ok)right++;else wrong.push(q.t.ar);
-        const nx=document.createElement("button");nx.className="btn";nx.style.justifySelf="start";nx.textContent=i+1<qs.length?"السؤال التالي":"النتيجة";
+      pq.appendChild(quizItem(q.q,i+1,ok=>{if(ok)right++;else wrong.push(loc(q.t).title);
+        const nx=document.createElement("button");nx.className="btn";nx.style.justifySelf="start";nx.textContent=i+1<qs.length?u.next:u.result;
         nx.onclick=()=>{i++;step()};pq.appendChild(nx);nx.focus({preventScroll:true})}));
     };
     step();
@@ -551,27 +714,28 @@ function testBox(title,sub,pool,max,cls,elId){
 const poolFor=units=>T.filter(t=>units.includes(t.u)).flatMap(t=>t.qz.map(q=>({q,t})));
 
 function render(){
-  stats();
+  stats();const u=S();
   const m=document.getElementById("main");m.innerHTML="";
   const q=qv();const list=document.createElement("div");list.className="list";
   if(q){
-    const r=T.filter(t=>(t.ar+" "+t.de+" "+t.x).toLowerCase().includes(q));
-    const h=document.createElement("div");h.className="unit";h.innerHTML=`<div class="top"><span class="ttl">نتائج البحث</span><span class="de">${r.length}</span></div>`;list.appendChild(h);
+    const r=T.filter(t=>{const L=loc(t);return (L.title+" "+t.de+" "+L.x+" "+t.ar).toLowerCase().includes(q)});
+    const h=document.createElement("div");h.className="unit";h.innerHTML=`<div class="top"><span class="ttl">${u.results}</span><span class="de">${r.length}</span></div>`;list.appendChild(h);
     r.forEach(t=>list.appendChild(topicEl(t,true)));
-    if(!r.length)list.insertAdjacentHTML("beforeend",`<p class="empty">لا توجد نتائج. جرّب كلمة أخرى بالعربية أو الألمانية.</p>`);
+    if(!r.length)list.insertAdjacentHTML("beforeend",`<p class="empty">${u.empty}</p>`);
     m.appendChild(list);return;
   }
   UNITS.forEach(U=>{
     const h=document.createElement("div");h.className="unit";h.id="u-"+U[0];
-    h.innerHTML=`<div class="top"><span class="n">${U[1]}</span><span class="ttl">${U[3]}</span></div><span class="de">${U[2]}</span>`;
+    h.innerHTML=`<div class="top"><span class="n">${U[1]}</span><span class="ttl">${unitTitle(U)}</span></div><span class="de">${U[2]}</span>`;
     list.appendChild(h);
     T.filter(t=>t.u===U[0]).forEach(t=>list.appendChild(topicEl(t,false)));
-    if(U[4]){const P=PLATEAUS[U[4]];list.appendChild(testBox("Plateau "+U[4],`اختبار مراجعة للوحدات ${P.map(uLabel).join("، ")} · 12 سؤالاً`,poolFor(P),12,"","p-"+U[4]))}
+    if(U[4]){const P=PLATEAUS[U[4]];list.appendChild(testBox("Plateau "+U[4],u.plSub(P.map(uLabel).join(u.sep)),poolFor(P),12,"","p-"+U[4]))}
   });
-  list.appendChild(testBox("A1 Abschlusstest",`الاختبار الشامل لكل قواعد A1 · 25 سؤالاً من كل الوحدات`,poolFor(UNITS.map(u=>u[0])),25,"final","final"));
+  list.appendChild(testBox("A1 Abschlusstest",u.finSub,poolFor(UNITS.map(x=>x[0])),25,"final","final"));
   m.appendChild(list);
 }
 document.getElementById("q").addEventListener("input",render);
+applyLang();
 render();
 </script>
 
