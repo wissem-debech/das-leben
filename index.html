@@ -290,6 +290,7 @@ body.noscroll{overflow:hidden}
 .legend .arts3{font-size:1rem;gap:8px}
 .btn.art-btn{background:var(--surface);border:1.5px solid var(--ink);padding-inline:14px}
 .btn.art-btn .arts3{font-size:.9rem}
+.ov-in:focus{outline:none}
 </style>
 
 </head>
@@ -300,7 +301,7 @@ body.noscroll{overflow:hidden}
   <main id="main"></main>
   <footer id="foot"></footer>
 </div>
-<div class="ov" id="ov" hidden role="dialog" aria-modal="true"><div class="ov-in" id="ovIn"></div></div>
+<div class="ov" id="ov" hidden role="dialog" aria-modal="true"><div class="ov-in" id="ovIn" tabindex="-1"></div></div>
 
 <script>
 const UNITS=[
@@ -634,7 +635,7 @@ const T=[
 const NOUNS={
 S:[["der","Kurs","Kurse","الدورة","course","le cours"],["der","Lehrer","Lehrer","المعلّم","teacher (m)","le professeur"],["die","Lehrerin","Lehrerinnen","المعلّمة","teacher (f)","la professeure"],["das","Buch","Bücher","الكتاب","book","le livre"],["das","Heft","Hefte","الكرّاس","exercise book","le cahier"],["der","Stift","Stifte","القلم","pen","le stylo"],["der","Tisch","Tische","الطاولة","table","la table"],["der","Stuhl","Stühle","الكرسي","chair","la chaise"],["die","Tafel","Tafeln","السبورة","board","le tableau"],["die","Tür","Türen","الباب","door","la porte"],["das","Fenster","Fenster","النافذة","window","la fenêtre"],["das","Wort","Wörter","الكلمة","word","le mot"]],
 1:[["der","Name","Namen","الاسم","name","le nom"],["das","Land","Länder","البلد","country","le pays"],["die","Sprache","Sprachen","اللغة","language","la langue"],["der","Student","Studenten","الطالب الجامعي","student (m)","l'étudiant"],["die","Studentin","Studentinnen","الطالبة الجامعية","student (f)","l'étudiante"],["der","Teilnehmer","Teilnehmer","المشارك","participant","le participant"],["der","Freund","Freunde","الصديق","friend (m)","l'ami"],["die","Freundin","Freundinnen","الصديقة","friend (f)","l'amie"],["die","Universität","Universitäten","الجامعة","university","l'université"],["das","Wörterbuch","Wörterbücher","القاموس","dictionary","le dictionnaire"],["die","Hausaufgabe","Hausaufgaben","الواجب المنزلي","homework","le devoir"],["der","Nachbar","Nachbarn","الجار","neighbour","le voisin"]],
-2:[["die","Telefonnummer","Telefonnummern","رقم الهاتف","phone number","le numéro de téléphone"],["die","Zahl","Zahlen","العدد","number","le nombre"],["die","Adresse","Adressen","العنوان","address","l'adresse"],["die","Straße","Straßen","الشارع","street","la rue"],["die","Hausnummer","Hausnummern","رقم المنزل","house number","le numéro de rue"],["die","Postleitzahl","Postleitzahlen","الرمز البريدي","postcode","le code postal"],["die","E-Mail","E-Mails","البريد الإلكتروني","e-mail","l'e-mail"],["das","Handy","Handys","الهاتف المحمول","mobile phone","le portable"],["der","Vorname","Vornamen","الاسم الأول","first name","le prénom"],["der","Familienname","Familiennamen","اسم العائلة","surname","le nom de famille"],["der","Buchstabe","Buchstaben","الحرف","letter (of the alphabet)","la lettre (de l'alphabet)"],["das","Formular","Formulare","الاستمارة","form","le formulaire"]],
+2:[["die","Telefonnummer","Telefonnummern","رقم الهاتف","phone number","le numéro de téléphone"],["die","Zahl","Zahlen","العدد","number","le nombre"],["die","Adresse","Adressen","العنوان","address","l'adresse"],["die","Straße","Straßen","الشارع","street","la rue"],["die","Hausnummer","Hausnummern","رقم المنزل","house number","le numéro de maison"],["die","Postleitzahl","Postleitzahlen","الرمز البريدي","postcode","le code postal"],["die","E-Mail","E-Mails","البريد الإلكتروني","e-mail","l'e-mail"],["das","Handy","Handys","الهاتف المحمول","mobile phone","le portable"],["der","Vorname","Vornamen","الاسم الأول","first name","le prénom"],["der","Familienname","Familiennamen","اسم العائلة","surname","le nom de famille"],["der","Buchstabe","Buchstaben","الحرف","letter (of the alphabet)","la lettre (de l'alphabet)"],["das","Formular","Formulare","الاستمارة","form","le formulaire"]],
 3:[["das","Café","Cafés","المقهى","café","le café (lieu)"],["der","Kaffee","Kaffees","القهوة","coffee","le café (boisson)"],["der","Tee","Tees","الشاي","tea","le thé"],["das","Wasser",null,"الماء","water","l'eau"],["der","Saft","Säfte","العصير","juice","le jus"],["die","Milch",null,"الحليب","milk","le lait"],["der","Zucker",null,"السكر","sugar","le sucre"],["die","Tasse","Tassen","الفنجان","cup","la tasse"],["das","Glas","Gläser","الكأس","glass","le verre"],["der","Kuchen","Kuchen","الكعكة","cake","le gâteau"],["die","Rechnung","Rechnungen","الفاتورة","bill","l'addition"],["der","Kellner","Kellner","النادل","waiter","le serveur"],["die","Kellnerin","Kellnerinnen","النادلة","waitress","la serveuse"],["die","Speisekarte","Speisekarten","قائمة الطعام","menu","la carte"]],
 4:[["das","Brot","Brote","الخبز","bread","le pain"],["das","Brötchen","Brötchen","الخبز الصغير","bread roll","le petit pain"],["der","Käse",null,"الجبن","cheese","le fromage"],["die","Butter",null,"الزبدة","butter","le beurre"],["das","Ei","Eier","البيضة","egg","l'œuf"],["der","Apfel","Äpfel","التفاحة","apple","la pomme"],["die","Banane","Bananen","الموزة","banana","la banane"],["die","Tomate","Tomaten","الطماطم","tomato","la tomate"],["die","Kartoffel","Kartoffeln","البطاطا","potato","la pomme de terre"],["das","Fleisch",null,"اللحم","meat","la viande"],["der","Fisch","Fische","السمك","fish","le poisson"],["das","Gemüse",null,"الخضار","vegetables","les légumes"],["das","Obst",null,"الفواكه","fruit","les fruits"],["der","Reis",null,"الأرز","rice","le riz"]],
 5:[["die","Zeit","Zeiten","الوقت","time","le temps"],["die","Uhr","Uhren","الساعة (الجهاز)","clock, watch","la montre, l'horloge"],["die","Stunde","Stunden","الساعة (مدّة)","hour","l'heure"],["die","Minute","Minuten","الدقيقة","minute","la minute"],["der","Termin","Termine","الموعد","appointment","le rendez-vous"],["der","Tag","Tage","اليوم","day","le jour"],["die","Woche","Wochen","الأسبوع","week","la semaine"],["der","Montag","Montage","يوم الاثنين","Monday","le lundi"],["das","Wochenende","Wochenenden","نهاية الأسبوع","weekend","le week-end"],["der","Morgen","Morgen","الصباح","morning","le matin"],["der","Abend","Abende","المساء","evening","le soir"],["das","Kino","Kinos","السينما","cinema","le cinéma"],["der","Kalender","Kalender","التقويم","calendar","le calendrier"]],
@@ -643,12 +644,12 @@ S:[["der","Kurs","Kurse","الدورة","course","le cours"],["der","Lehrer","Le
 8:[["die","Freizeit",null,"وقت الفراغ","free time","le temps libre"],["das","Hobby","Hobbys","الهواية","hobby","le hobby"],["der","Sport",null,"الرياضة","sport","le sport"],["der","Fußball","Fußbälle","كرة القدم","football","le football"],["die","Musik",null,"الموسيقى","music","la musique"],["das","Konzert","Konzerte","الحفل الموسيقي","concert","le concert"],["das","Fahrrad","Fahrräder","الدرّاجة","bicycle","le vélo"],["die","Gitarre","Gitarren","الغيتار","guitar","la guitare"],["das","Schwimmbad","Schwimmbäder","المسبح","swimming pool","la piscine"],["der","Film","Filme","الفيلم","film","le film"],["das","Spiel","Spiele","اللعبة","game","le jeu"],["das","Theater","Theater","المسرح","theatre","le théâtre"],["der","Verein","Vereine","النادي","club","le club"]],
 9:[["die","Wohnung","Wohnungen","الشقة","flat","l'appartement"],["das","Haus","Häuser","المنزل","house","la maison"],["das","Zimmer","Zimmer","الغرفة","room","la pièce"],["die","Küche","Küchen","المطبخ","kitchen","la cuisine"],["das","Bad","Bäder","الحمّام","bathroom","la salle de bain"],["das","Wohnzimmer","Wohnzimmer","غرفة الجلوس","living room","le salon"],["das","Schlafzimmer","Schlafzimmer","غرفة النوم","bedroom","la chambre"],["der","Balkon","Balkone","الشرفة","balcony","le balcon"],["das","Sofa","Sofas","الأريكة","sofa","le canapé"],["das","Bett","Betten","السرير","bed","le lit"],["der","Schrank","Schränke","الخزانة","wardrobe, cupboard","l'armoire"],["die","Lampe","Lampen","المصباح","lamp","la lampe"],["die","Miete","Mieten","الإيجار","rent","le loyer"],["der","Teppich","Teppiche","السجّادة","carpet","le tapis"]],
 10:[["die","Familie","Familien","العائلة","family","la famille"],["die","Eltern","PL","الوالدان","parents","les parents"],["die","Mutter","Mütter","الأم","mother","la mère"],["der","Vater","Väter","الأب","father","le père"],["der","Bruder","Brüder","الأخ","brother","le frère"],["die","Schwester","Schwestern","الأخت","sister","la sœur"],["der","Sohn","Söhne","الابن","son","le fils"],["die","Tochter","Töchter","البنت","daughter","la fille"],["das","Kind","Kinder","الطفل","child","l'enfant"],["die","Oma","Omas","الجدّة","grandma","la grand-mère"],["der","Opa","Opas","الجدّ","grandpa","le grand-père"],["der","Onkel","Onkel","العمّ / الخال","uncle","l'oncle"],["die","Tante","Tanten","العمّة / الخالة","aunt","la tante"],["die","Geschwister","PL","الإخوة والأخوات","siblings","les frères et sœurs"]],
-11:[["der","Beruf","Berufe","المهنة","job, profession","le métier"],["der","Arzt","Ärzte","الطبيب","doctor (m)","le médecin"],["die","Ärztin","Ärztinnen","الطبيبة","doctor (f)","la médecin"],["der","Verkäufer","Verkäufer","البائع","shop assistant (m)","le vendeur"],["die","Verkäuferin","Verkäuferinnen","البائعة","shop assistant (f)","la vendeuse"],["der","Koch","Köche","الطبّاخ","cook (m)","le cuisinier"],["die","Köchin","Köchinnen","الطبّاخة","cook (f)","la cuisinière"],["der","Kunde","Kunden","الزبون","customer (m)","le client"],["die","Kundin","Kundinnen","الزبونة","customer (f)","la cliente"],["das","Gespräch","Gespräche","المحادثة","conversation","la conversation"],["der","Brief","Briefe","الرسالة","letter (post)","la lettre (courrier)"],["die","Pause","Pausen","الاستراحة","break","la pause"],["der","Feierabend","Feierabende","نهاية الدوام","end of the working day","la fin de la journée de travail"],["das","Geld",null,"المال","money","l'argent"]],
+11:[["der","Beruf","Berufe","المهنة","profession","le métier"],["der","Arzt","Ärzte","الطبيب","doctor (m)","le médecin"],["die","Ärztin","Ärztinnen","الطبيبة","doctor (f)","la médecin"],["der","Verkäufer","Verkäufer","البائع","shop assistant (m)","le vendeur"],["die","Verkäuferin","Verkäuferinnen","البائعة","shop assistant (f)","la vendeuse"],["der","Koch","Köche","الطبّاخ","cook (m)","le cuisinier"],["die","Köchin","Köchinnen","الطبّاخة","cook (f)","la cuisinière"],["der","Kunde","Kunden","الزبون","customer (m)","le client"],["die","Kundin","Kundinnen","الزبونة","customer (f)","la cliente"],["das","Gespräch","Gespräche","المحادثة","conversation","la conversation"],["der","Brief","Briefe","الرسالة","letter (post)","la lettre (courrier)"],["die","Pause","Pausen","الاستراحة","break","la pause"],["der","Feierabend","Feierabende","نهاية الدوام","end of the working day","la fin de la journée de travail"],["das","Geld",null,"المال","money","l'argent"]],
 12:[["das","Rezept","Rezepte","الوصفة","recipe","la recette"],["die","Flasche","Flaschen","القارورة","bottle","la bouteille"],["das","Kilo","Kilos","الكيلو","kilo","le kilo"],["das","Gramm",null,"الغرام","gram","le gramme"],["die","Packung","Packungen","العلبة","packet","le paquet"],["der","Supermarkt","Supermärkte","السوبرماركت","supermarket","le supermarché"],["der","Markt","Märkte","السوق","market","le marché"],["die","Zwiebel","Zwiebeln","البصلة","onion","l'oignon"],["die","Suppe","Suppen","الحساء","soup","la soupe"],["der","Salat","Salate","السلطة","salad","la salade"],["das","Salz",null,"الملح","salt","le sel"],["der","Topf","Töpfe","القِدر","pot, saucepan","la casserole"],["der","Löffel","Löffel","الملعقة","spoon","la cuillère"],["das","Messer","Messer","السكين","knife","le couteau"]],
 13:[["der","Körper","Körper","الجسم","body","le corps"],["der","Kopf","Köpfe","الرأس","head","la tête"],["der","Bauch","Bäuche","البطن","stomach","le ventre"],["der","Rücken","Rücken","الظهر","back","le dos"],["das","Bein","Beine","الساق","leg","la jambe"],["der","Arm","Arme","الذراع","arm","le bras"],["die","Hand","Hände","اليد","hand","la main"],["der","Fuß","Füße","القدم","foot","le pied"],["das","Auge","Augen","العين","eye","l'œil"],["das","Ohr","Ohren","الأذن","ear","l'oreille"],["die","Praxis","Praxen","العيادة","doctor's surgery","le cabinet médical"],["die","Tablette","Tabletten","الحبّة (دواء)","tablet, pill","le comprimé"],["das","Fieber",null,"الحُمّى","fever","la fièvre"]],
 14:[["die","Kleidung",null,"الملابس","clothes","les vêtements"],["die","Hose","Hosen","السروال","trousers","le pantalon"],["das","Kleid","Kleider","الفستان","dress","la robe"],["der","Rock","Röcke","التنّورة","skirt","la jupe"],["das","Hemd","Hemden","القميص","shirt","la chemise"],["die","Bluse","Blusen","البلوزة","blouse","le chemisier"],["die","Jacke","Jacken","السترة","jacket","la veste"],["der","Mantel","Mäntel","المعطف","coat","le manteau"],["der","Pullover","Pullover","الكنزة","jumper","le pull"],["der","Schuh","Schuhe","الحذاء","shoe","la chaussure"],["die","Mütze","Mützen","القبّعة الصوفية","woolly hat","le bonnet"],["die","Größe","Größen","المقاس","size","la taille"],["die","Farbe","Farben","اللون","colour","la couleur"],["das","T-Shirt","T-Shirts","التي شيرت","T-shirt","le T-shirt"]],
 15:[["das","Wetter",null,"الطقس","weather","la météo"],["die","Sonne",null,"الشمس","sun","le soleil"],["der","Regen",null,"المطر","rain","la pluie"],["der","Schnee",null,"الثلج","snow","la neige"],["der","Wind","Winde","الريح","wind","le vent"],["die","Jahreszeit","Jahreszeiten","الفصل","season","la saison"],["der","Frühling",null,"الربيع","spring","le printemps"],["der","Sommer","Sommer","الصيف","summer","l'été"],["der","Herbst",null,"الخريف","autumn","l'automne"],["der","Winter","Winter","الشتاء","winter","l'hiver"],["das","Fest","Feste","العيد، الاحتفال","celebration","la fête"],["der","Geburtstag","Geburtstage","عيد الميلاد","birthday","l'anniversaire"],["das","Geschenk","Geschenke","الهدية","present","le cadeau"],["die","Party","Partys","الحفلة","party","la soirée"]],
-16:[["der","Urlaub","Urlaube","العطلة","holiday","les vacances"],["die","Reise","Reisen","الرحلة","journey, trip","le voyage"],["der","Koffer","Koffer","الحقيبة","suitcase","la valise"],["das","Ticket","Tickets","التذكرة","ticket","le billet"],["der","Flughafen","Flughäfen","المطار","airport","l'aéroport"],["das","Flugzeug","Flugzeuge","الطائرة","plane","l'avion"],["der","Zug","Züge","القطار","train","le train"],["das","Meer","Meere","البحر","sea","la mer"],["der","Strand","Strände","الشاطئ","beach","la plage"],["der","Berg","Berge","الجبل","mountain","la montagne"],["das","Hotel","Hotels","الفندق","hotel","l'hôtel"],["der","Pass","Pässe","جواز السفر","passport","le passeport"],["die","Insel","Inseln","الجزيرة","island","l'île"],["das","Zelt","Zelte","الخيمة","tent","la tente"]]
+16:[["der","Urlaub","Urlaube","العطلة","holiday","les vacances"],["die","Reise","Reisen","الرحلة","journey, trip","le voyage"],["der","Koffer","Koffer","حقيبة السفر","suitcase","la valise"],["das","Ticket","Tickets","التذكرة","ticket","le billet"],["der","Flughafen","Flughäfen","المطار","airport","l'aéroport"],["das","Flugzeug","Flugzeuge","الطائرة","plane","l'avion"],["der","Zug","Züge","القطار","train","le train"],["das","Meer","Meere","البحر","sea","la mer"],["der","Strand","Strände","الشاطئ","beach","la plage"],["der","Berg","Berge","الجبل","mountain","la montagne"],["das","Hotel","Hotels","الفندق","hotel","l'hôtel"],["der","Pass","Pässe","جواز السفر","passport","le passeport"],["die","Insel","Inseln","الجزيرة","island","l'île"],["das","Zelt","Zelte","الخيمة","tent","la tente"]]
 };
 
 /* ---------- Verben: [infinitive, separable prefix, Präsens ich|du|er|wir|ihr|sie (without prefix), aux h/s, Partizip II, Imperativ du|ihr|Sie or null, Präteritum ich-form or null, ar, en, fr] ---------- */
@@ -885,12 +886,12 @@ const UI2={
   learnedV:(n,a)=>`أتقنت <b>${n}</b> من <b>${a}</b> فعلاً`,learnedW:(n,a)=>`أتقنت <b>${n}</b> من <b>${a}</b> كلمة`,
   tPres:"الحاضر",tPerf:"الماضي التام",tImp:"الأمر",tPrt:"الماضي البسيط",
   tagSein:"مع sein",tagSep:"فعل منفصل",tagIrr:"شاذ",
-  noImp:"لا يُستعمل عادةً في صيغة الأمر.",
+  noImp:"لا يُستعمل عادةً في صيغة الأمر.",auxAlt:(f,r)=>r==="AT"?`في النمسا وجنوب ألمانيا يُقال: ${f} (مهمّ لامتحان ÖSD).`:`يُقال أيضاً: ${f}.`,
   pracUnit:"تدرّب",pracAllV:"تدرّب على كل الأفعال",
   mPick:"اختر الكلمة",mCards:"البطاقات",
   hideArt:"إخفاء الأداة",hideTr:"إخفاء المعنى",tapHint:"اضغط على الكلمة لإظهار ما أخفيته.",
   legend:"der مذكر · die مؤنث · das محايد · الجمع دائماً die",
-  noPl:"بدون جمع",plOnly:"جمع فقط",
+  noPl:"عادةً بدون جمع",plOnly:"جمع فقط",
   weakNone:"لا توجد كلمات صعبة بعد. الكلمات التي تخطئ فيها في التمارين ستظهر هنا.",
   qArt:"اختر الأداة الصحيحة",qPick:"اختر الكلمة الألمانية مع أداتها الصحيحة",qPres:"أكمل بالتصريف الصحيح في الحاضر",qAux:"haben أو sein في الماضي التام؟",
   qPart:"اختر التصريف الثالث (Partizip II)",qImp:"اختر صيغة الأمر الصحيحة",qPrt:"اختر صيغة الماضي البسيط (Präteritum)",qVm:"ماذا يعني هذا الفعل؟",
@@ -898,7 +899,7 @@ const UI2={
   good:"أحسنت!",right:"الإجابة الصحيحة:",pNext:"التالي",pResult:"النتيجة",pClose:"إغلاق",pAgain:"ابدأ من جديد",pRedo:"أعد الأخطاء فقط",pMist:"راجع هذه:",
   pPerfect:"ممتاز! كل إجاباتك صحيحة.",pGood:"جيد! راجع أخطاءك ثم أعد المحاولة.",pLow:"تحتاج إلى مراجعة. أعد الأخطاء حتى تحفظها.",
   flip:"اقلب البطاقة",knew:"عرفتها",notYet:"لم أعرفها بعد",speak:"استمع للنطق",
-  keysHint:"على الحاسوب: الأرقام 1–4 للاختيار و Enter للتالي.",tWeak:"الكلمات الصعبة",
+  keysHint:"على الحاسوب: الأرقام 1–4 للاختيار و Enter للتالي.",cardKeys:"على الحاسوب: المسافة لقلب البطاقة، 1 «لم أعرفها بعد»، 2 «عرفتها».",tWeak:"الكلمات الصعبة",
   foot:"التقدّم يُحفظ في متصفحك فقط. الترتيب حسب وحدات Das Leben A1؛ الأفعال والمفردات مختارة حسب موضوع كل وحدة، وقد تختلف قليلاً عن قائمة كتابك. راجع مع أستاذك وتدرّب على نماذج telc و ÖSD الرسمية."},
  en:{doc:"Das Leben A1 · Review",
   homeSub:"Your study companion for Das Leben A1: grammar, verbs and vocabulary, unit by unit.",homeQ:"What do you want to review today?",
@@ -913,12 +914,12 @@ const UI2={
   learnedV:(n,a)=>`Mastered <b>${n}</b> of <b>${a}</b> verbs`,learnedW:(n,a)=>`Mastered <b>${n}</b> of <b>${a}</b> words`,
   tPres:"present",tPerf:"perfect (past)",tImp:"imperative",tPrt:"simple past",
   tagSein:"with sein",tagSep:"separable",tagIrr:"irregular",
-  noImp:"Not normally used in the imperative.",
+  noImp:"Not normally used in the imperative.",auxAlt:(f,r)=>r==="AT"?`In Austria and southern Germany people say: ${f} (useful for the ÖSD exam).`:`Also possible: ${f}.`,
   pracUnit:"Practise",pracAllV:"Practise all verbs",
   mPick:"Pick the word",mCards:"Flashcards",
   hideArt:"Hide articles",hideTr:"Hide meanings",tapHint:"Tap a word to reveal what you hid.",
   legend:"der masculine · die feminine · das neuter · plural always die",
-  noPl:"no plural",plOnly:"plural only",
+  noPl:"usually no plural",plOnly:"plural only",
   weakNone:"No difficult words yet. Words you get wrong in the exercises will appear here.",
   qArt:"Choose the right article",qPick:"Choose the German word with the right article",qPres:"Fill in the correct present-tense form",qAux:"haben or sein in the Perfekt?",
   qPart:"Choose the past participle (Partizip II)",qImp:"Choose the correct imperative",qPrt:"Choose the simple past form (Präteritum)",qVm:"What does this verb mean?",
@@ -926,7 +927,7 @@ const UI2={
   good:"Correct!",right:"Correct answer:",pNext:"Next",pResult:"See result",pClose:"Close",pAgain:"Start again",pRedo:"Redo mistakes only",pMist:"Review these:",
   pPerfect:"Excellent! All your answers are correct.",pGood:"Good! Review your mistakes and try again.",pLow:"Keep practising. Redo your mistakes until you know them.",
   flip:"Flip the card",knew:"I knew it",notYet:"Not yet",speak:"Listen",
-  keysHint:"On a computer: press 1–4 to answer and Enter for next.",tWeak:"Difficult words",
+  keysHint:"On a computer: press 1–4 to answer and Enter for next.",cardKeys:"On a computer: Space flips the card, 1 = not yet, 2 = I knew it.",tWeak:"Difficult words",
   foot:"Your progress is saved in this browser only. The order follows the Das Leben A1 units; verbs and vocabulary are chosen to match each unit's theme and may differ slightly from your book's word list. Review with your teacher and practise with the official telc and ÖSD sample tests."},
  fr:{doc:"Das Leben A1 · Révision",
   homeSub:"Ton compagnon de révision pour Das Leben A1 : grammaire, verbes et vocabulaire, unité par unité.",homeQ:"Que veux-tu réviser aujourd'hui ?",
@@ -938,15 +939,15 @@ const UI2={
   back:"Accueil",
   vLede:"Les verbes importants de chaque unité, conjugués au présent (Präsens), au passé (Perfekt) et à l'impératif (Imperativ). Les formes en couleur sont irrégulières : apprends-les bien.",
   wLede:"Les nouveaux mots de chaque unité. Apprends toujours un nom avec son article : der pour le masculin, die pour le féminin, das pour le neutre, et die pour tous les pluriels. Les couleurs t'aident à mémoriser.",
-  learnedV:(n,a)=>`Maîtrisés : <b>${n}</b> verbes sur <b>${a}</b>`,learnedW:(n,a)=>`Maîtrisés : <b>${n}</b> mots sur <b>${a}</b>`,
+  learnedV:(n,a)=>`Verbes maîtrisés : <b>${n}</b> sur <b>${a}</b>`,learnedW:(n,a)=>`Mots maîtrisés : <b>${n}</b> sur <b>${a}</b>`,
   tPres:"présent",tPerf:"passé composé",tImp:"impératif",tPrt:"prétérit",
   tagSein:"avec sein",tagSep:"séparable",tagIrr:"irrégulier",
-  noImp:"Pas utilisé normalement à l'impératif.",
+  noImp:"Pas utilisé normalement à l'impératif.",auxAlt:(f,r)=>r==="AT"?`En Autriche et dans le sud de l'Allemagne, on dit : ${f} (utile pour l'examen ÖSD).`:`Possible aussi : ${f}.`,
   pracUnit:"S'entraîner",pracAllV:"S'entraîner sur tous les verbes",
   mPick:"Choisir le mot",mCards:"Cartes",
   hideArt:"Masquer les articles",hideTr:"Masquer le sens",tapHint:"Touche un mot pour voir ce que tu as masqué.",
   legend:"der masculin · die féminin · das neutre · pluriel toujours die",
-  noPl:"pas de pluriel",plOnly:"pluriel seulement",
+  noPl:"en général sans pluriel",plOnly:"pluriel seulement",
   weakNone:"Pas encore de mots difficiles. Les mots que tu rates dans les exercices apparaîtront ici.",
   qArt:"Choisis le bon article",qPick:"Choisis le mot allemand avec le bon article",qPres:"Complète avec la bonne forme du présent",qAux:"haben ou sein au Perfekt ?",
   qPart:"Choisis le participe passé (Partizip II)",qImp:"Choisis la bonne forme de l'impératif",qPrt:"Choisis la forme du prétérit (Präteritum)",qVm:"Que veut dire ce verbe ?",
@@ -954,7 +955,7 @@ const UI2={
   good:"Bravo !",right:"Bonne réponse :",pNext:"Suivant",pResult:"Voir le résultat",pClose:"Fermer",pAgain:"Recommencer",pRedo:"Refaire seulement les erreurs",pMist:"À revoir :",
   pPerfect:"Excellent ! Toutes tes réponses sont justes.",pGood:"Bien ! Revois tes erreurs et réessaie.",pLow:"Continue à t'entraîner. Refais tes erreurs jusqu'à les connaître.",
   flip:"Retourner la carte",knew:"Je savais",notYet:"Pas encore",speak:"Écouter",
-  keysHint:"Sur ordinateur : touches 1 à 4 pour répondre, Entrée pour continuer.",tWeak:"Mots difficiles",
+  keysHint:"Sur ordinateur : touches 1 à 4 pour répondre, Entrée pour continuer.",cardKeys:"Sur ordinateur : Espace pour retourner la carte, 1 = pas encore, 2 = je savais.",tWeak:"Mots difficiles",
   foot:"Ta progression est enregistrée uniquement dans ce navigateur. L'ordre suit les unités de Das Leben A1 ; les verbes et le vocabulaire sont choisis selon le thème de chaque unité et peuvent différer un peu de la liste de ton livre. Révise avec ton professeur et entraîne-toi avec les modèles officiels telc et ÖSD."}
 };
 for(const l in UI2)Object.assign(UI[l],UI2[l]);
@@ -984,6 +985,7 @@ const UKEYS=UNITS.map(u=>u[0]);
 const NL=[],VL=[];
 UKEYS.forEach(u=>{(NOUNS[u]||[]).forEach(x=>NL.push({u,a:x[0],w:x[1],pl:x[2],m:{ar:x[3],en:x[4],fr:x[5]},id:"n:"+x[1]}));
   (VERBS[u]||[]).forEach(x=>VL.push({u,inf:x[0],sep:x[1],pres:x[2].split("|"),aux:x[3],part:x[4],imp:x[5]?x[5].split("|"):null,prt:x[6],m:{ar:x[7],en:x[8],fr:x[9]},id:"v:"+x[0]}))});
+const AUXALT={liegen:["er ist gelegen","AT"],stehen:["er ist gestanden","AT"],schwimmen:["er hat geschwommen","X"]};
 const HABEN=["habe","hast","hat","haben","habt","haben"],SEIN=["bin","bist","ist","sind","seid","sind"];
 const PERS=["ich","du","er/sie/es","wir","ihr","sie/Sie"],QP=["ich","du","er","wir","ihr","Sie"];
 const presF=(v,i)=>v.pres[i]+(v.sep?" "+v.sep:"");
@@ -1023,8 +1025,11 @@ const nounSay=n=>n.a+" "+n.w;
 /* ================= Routing ================= */
 const VIEWS=["grammatik","verben","wortschatz"];
 let view=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"home";
-function go(v){view=v;try{history.pushState(null,"",v==="home"?location.pathname+location.search:"#"+v)}catch(e){}renderAll();window.scrollTo(0,0)}
-function fromUrl(){const h=location.hash.slice(1);const v=VIEWS.includes(h)?h:"home";if(SESSION)closeSession(true);if(v!==view){view=v;renderAll();window.scrollTo(0,0)}}
+function go(v){view=v;try{history.pushState({app:1,view:v},"",v==="home"?location.pathname+location.search:"#"+v)}catch(e){}renderAll();window.scrollTo(0,0)}
+function goHome(){let st=null;try{st=history.state}catch(e){}if(st&&st.app&&st.view===view&&!st.ov){try{history.back();return}catch(e){}}go("home")}
+function fromUrl(){const h=location.hash.slice(1);const v=VIEWS.includes(h)?h:"home";
+  if(SESSION){closeSession(true);if(v===view)return}
+  if(v!==view){view=v;renderAll();window.scrollTo(0,0)}}
 window.addEventListener("popstate",fromUrl);window.addEventListener("hashchange",fromUrl);
 
 /* ================= Language ================= */
@@ -1055,7 +1060,7 @@ function renderAll(){
   top.innerHTML=`<div class="toprow"><button type="button" class="backbtn" id="backBtn"><span aria-hidden="true">${back}</span> ${u.back}</button>${langSwitch()}</div>
    <h1 class="sech"><span class="secico">${ICON[view]}</span><span><span class="de-h">${sc.de}</span><span class="loc-h">${u[sc.k]}</span></span></h1>
    <p class="lede" id="lede"></p><div class="stats"><span id="statsTxt"></span><div class="prog"><i id="pg"></i></div></div>`;
-  $("#backBtn").onclick=()=>go("home");
+  $("#backBtn").onclick=goHome;
   bar.innerHTML=`<nav class="chips" id="chips" aria-label="${esc(u.nav)}"></nav>`+(view==="grammatik"?`<input class="search" id="q" type="search" placeholder="${esc(u.search)}">`:"");
   if(view==="grammatik"){$("#lede").textContent=u.lede;$("#q").addEventListener("input",renderGrammar);renderGrammar()}
   if(view==="verben"){$("#lede").textContent=u.vLede;renderVerbs()}
@@ -1196,7 +1201,7 @@ function verbEl(v){
    <div class="body"><div class="vhead">${spk(v.inf)}<span class="de vline">${v.inf} – ${presF(v,2).replace(/^/,"er ")} – ${perfF(v,2).replace(/^/,"er ")}</span></div>
    <div class="conj"><div class="ct"><h4><span class="de">Präsens</span><small>${u.tPres}</small></h4>${pres}</div>
    <div class="ct"><h4><span class="de">Perfekt</span><small>${u.tPerf}</small></h4>${perf}</div>
-   <div class="ct"><h4><span class="de">Imperativ</span><small>${u.tImp}</small></h4>${imp}</div>${prt}</div></div>`;
+   <div class="ct"><h4><span class="de">Imperativ</span><small>${u.tImp}</small></h4>${imp}</div>${prt}</div>${AUXALT[v.inf]?`<p class="hint small auxalt">${u.auxAlt(`<span class="de">${AUXALT[v.inf][0]}</span>`,AUXALT[v.inf][1])}</p>`:""}</div>`;
   return d;
 }
 function renderVerbs(){
@@ -1278,7 +1283,7 @@ function verbQs(v,pool){
   qs.push({...base,kind:"mc",ask:()=>u().qPres,prompt:()=>`<span class="qline de">${QP[i]} <span class="gap">___</span></span>`,sub:()=>`<span class="de">(${v.inf})</span>`,...mcFrom(pc,pd),reveal:()=>`<span class="de">${QP[i]} ${pc}</span>`});
   // Perfekt: auxiliary or participle
   const j=pick([0,1,2,3,4,5]);
-  if(Math.random()<.5){const c=(v.aux==="s"?SEIN:HABEN)[j],w=(v.aux==="s"?HABEN:SEIN)[j];const o=shuffle([c,w]);
+  if(!AUXALT[v.inf]&&Math.random()<.5){const c=(v.aux==="s"?SEIN:HABEN)[j],w=(v.aux==="s"?HABEN:SEIN)[j];const o=shuffle([c,w]);
     qs.push({...base,kind:"mc",ask:()=>u().qAux,prompt:()=>`<span class="qline de">${QP[j]} <span class="gap">___</span> ${v.part}</span>`,sub:()=>`<span class="de">(${v.inf})</span>`,opts:o.map(h=>({h,cls:"de"})),ans:o.indexOf(c),reveal:()=>`<span class="de">${QP[j]} ${perfF(v,j)}</span>`});
   }else{const aux=(v.aux==="s"?SEIN:HABEN)[j];
     qs.push({...base,kind:"mc",ask:()=>u().qPart,prompt:()=>`<span class="qline de">${QP[j]} ${aux} <span class="gap">___</span></span>`,sub:()=>`<span class="de">(${v.inf})</span>`,...mcFrom(v.part,partDistractors(v)),reveal:()=>`<span class="de">${QP[j]} ${perfF(v,j)}</span>`});}
@@ -1301,13 +1306,17 @@ function buildVerbQs(vs,max,pool){return shuffle(vs.flatMap(v=>verbQs(v,pool&&po
 let SESSION=null;
 function startSession(builder,title){
   const qs=builder();if(!qs.length)return;
-  SESSION={builder,title,qs,i:0,right:0,total:qs.length,wrong:[],answered:false,flipped:false,requeued:new Set(),first:new Set()};
+  let pushed=!!(SESSION&&SESSION.pushed);
+  if(!pushed){try{history.pushState({app:1,view,ov:1},"",location.href);pushed=true}catch(e){}}
+  if(SESSION)clearTimeout(SESSION.timer);
+  SESSION={builder,title,qs,i:0,right:0,total:qs.length,wrong:[],answered:false,flipped:false,requeued:new Set(),first:new Set(),pushed};
   SESSION.rerender=renderQ;
   const ov=$("#ov");ov.hidden=false;document.body.classList.add("noscroll");$(".wrap").setAttribute("aria-hidden","true");
-  renderQ();setTimeout(()=>{const c=$("#ovClose");if(c)c.focus({preventScroll:true})},30);
+  renderQ();setTimeout(()=>{const c=$("#ovIn");if(c)c.focus({preventScroll:true})},30);
 }
-function closeSession(silent){const ov=$("#ov");const s=SESSION;if(s)clearTimeout(s.timer);ov.hidden=true;document.body.classList.remove("noscroll");$(".wrap").removeAttribute("aria-hidden");SESSION=null;try{speechSynthesis.cancel()}catch(e){}
-  if(silent)return;const y=window.scrollY;renderAll();window.scrollTo(0,y)}
+function closeSession(viaHistory){const ov=$("#ov");const s=SESSION;if(s)clearTimeout(s.timer);ov.hidden=true;document.body.classList.remove("noscroll");$(".wrap").removeAttribute("aria-hidden");SESSION=null;try{speechSynthesis.cancel()}catch(e){}
+  if(!viaHistory&&s&&s.pushed){try{history.back()}catch(e){}}
+  const y=window.scrollY;renderAll();window.scrollTo(0,y)}
 function headerHtml(){const s=SESSION,u=S();const n=Math.min(s.i+1,s.qs.length);
   return `<div class="ov-head"><button type="button" class="ov-x" id="ovClose" aria-label="${esc(u.pClose)}">✕</button><div class="ov-title">${esc(s.title)}</div><div class="ov-count">${s.i<s.qs.length?n+" / "+s.qs.length:""}</div></div><div class="prog ov-prog"><i style="width:${s.qs.length?Math.min(s.i,s.qs.length)/s.qs.length*100:0}%"></i></div>`}
 function renderQ(){
@@ -1317,7 +1326,7 @@ function renderQ(){
   if(q.kind==="card"){
     box.innerHTML=headerHtml()+`<div class="qask">${u.qCard}</div><button type="button" class="fc${s.flipped?" flipped":""}" id="fc">${s.flipped?q.back():q.front()}</button>
      <div class="qbtns" id="cardBtns">${s.flipped?`<button type="button" class="btn bigb bad" id="cNo">${u.notYet}</button><button type="button" class="btn bigb good" id="cYes">${u.knew}</button>`:`<button type="button" class="btn bigb" id="cFlip">${u.flip}</button>`}</div>
-     ${s.flipped?`<div class="center">${spk(q.say)}</div>`:""}<p class="khint">${u.keysHint}</p>`;
+     ${s.flipped?`<div class="center">${spk(q.say)}</div>`:""}<p class="khint">${u.cardKeys}</p>`;
     const flip=()=>{if(!s.flipped){s.flipped=true;say(q.say);renderQ()}};
     $("#fc").onclick=flip;if($("#cFlip"))$("#cFlip").onclick=flip;
     if($("#cYes"))$("#cYes").onclick=()=>cardAnswer(true);
