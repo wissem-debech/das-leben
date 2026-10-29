@@ -309,6 +309,18 @@ body.noscroll{overflow:hidden}
 .t-prep{background:var(--das-soft);color:var(--das)}
 .prepline{margin:10px 0 0;font-size:.95rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .prepline b{color:var(--das)}
+/* install hint */
+.inst{position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;padding:12px 12px 12px 14px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 10px 30px rgba(10,20,40,.18);transform:translateY(130%);opacity:0;transition:transform .35s ease,opacity .35s ease}
+.inst.on{transform:none;opacity:1}
+.inst-ic{width:44px;height:44px;border-radius:11px;flex:none}
+.inst-tx{display:grid;gap:2px;flex:1;min-width:0;font-size:.86rem;line-height:1.45}
+.inst-tx strong{font-size:.95rem}
+.inst-tx span{color:var(--muted)}
+.inst-b{display:flex;gap:6px;align-items:center;flex:none}
+.inst-x{font:inherit;font-size:.85rem;border:0;background:none;color:var(--muted);cursor:pointer;padding:8px}
+@media (prefers-reduced-motion:reduce){.inst{transition:none}}
 </style>
 
 </head>
@@ -551,6 +563,8 @@ const VERBS2={
 /* ---------- Interface strings for home, verbs, vocabulary and practice ---------- */
 const UI2={
  ar:{doc:"Das Leben {L} · مراجعة",
+  insT:"ثبّت التطبيق على هاتفك",insD:"افتحه من الشاشة الرئيسية مثل أي تطبيق، ويعمل بدون إنترنت.",insBtn:"تثبيت",insLater:"لاحقاً",
+  insIos:"اضغط زرّ المشاركة <b>⬆︎</b> ثم «<b>إضافة إلى الشاشة الرئيسية</b>».",insMenu:"افتح قائمة المتصفح <b>⋮</b> ثم «<b>إضافة إلى الشاشة الرئيسية</b>».",insClose:"إغلاق",
   level:"المستوى",tagPrep:"مع حرف جرّ",qPrep:"اختر حرف الجرّ الصحيح",
   vLede2:"أهم أفعال A2 في كل وحدة من قائمة الكلمات في الكتاب (الأفعال الموجودة في A1 لا تتكرّر). لكل فعل: الحاضر والماضي البسيط (Präteritum) والماضي التام والأمر، ومع حرف الجرّ إن وُجد. الأشكال الملوّنة شاذة.",
   wLede2:"الكلمات الجديدة التي يجب حفظها في كل وحدة من A2، من قائمة الكلمات في آخر الكتاب (كلمات امتحان A2، والكلمات الموجودة في A1 لا تتكرّر). احفظ كل اسم مع أداته وجمعه.",
@@ -582,6 +596,8 @@ const UI2={
   keysHint:"على الحاسوب: الأرقام 1–4 للاختيار و Enter للتالي.",cardKeys:"على الحاسوب: المسافة لقلب البطاقة، 1 «لم أعرفها بعد»، 2 «عرفتها».",tWeak:"الكلمات الصعبة",
   foot:"التقدّم يُحفظ في متصفحك فقط. القواعد والمفردات والأفعال مأخوذة من كتاب Das Leben {L} وبترتيب وحداته: القواعد من صفحات المحتويات وملخص القواعد، والمفردات والأفعال من قائمة الكلمات في آخر الكتاب. الشرح والتمارين من إعداد هذا التطبيق. راجع مع أستاذك وتدرّب على نماذج telc و ÖSD الرسمية."},
  en:{doc:"Das Leben {L} · Review",
+  insT:"Install the app on your phone",insD:"Open it from your home screen like any app – it also works offline.",insBtn:"Install",insLater:"Later",
+  insIos:"Tap the Share button <b>⬆︎</b>, then “<b>Add to Home Screen</b>”.",insMenu:"Open the browser menu <b>⋮</b>, then “<b>Add to Home screen</b>”.",insClose:"Close",
   level:"Level",tagPrep:"with a preposition",qPrep:"Choose the correct preposition",
   vLede2:"The key A2 verbs of each unit from the book's word list (verbs already in A1 are not repeated). Each verb has the present, the simple past (Präteritum), the Perfekt and the imperative, plus its preposition if it has one. Coloured forms are irregular.",
   wLede2:"The new words to learn in each A2 unit, from the word list at the back of the book (A2 exam vocabulary; words already in A1 are not repeated). Always learn a noun with its article and plural.",
@@ -613,6 +629,8 @@ const UI2={
   keysHint:"On a computer: press 1–4 to answer and Enter for next.",cardKeys:"On a computer: Space flips the card, 1 = not yet, 2 = I knew it.",tWeak:"Difficult words",
   foot:"Your progress is saved in this browser only. Grammar, vocabulary and verbs come from Das Leben {L}, in the order of its units: grammar from the contents pages and grammar overview, vocabulary and verbs from the word list at the back of the book. Explanations and exercises are written for this app. Review with your teacher and practise with the official telc and ÖSD sample tests."},
  fr:{doc:"Das Leben {L} · Révision",
+  insT:"Installe l'application sur ton téléphone",insD:"Ouvre-la depuis l'écran d'accueil comme une vraie appli – elle marche aussi hors ligne.",insBtn:"Installer",insLater:"Plus tard",
+  insIos:"Touche le bouton Partager <b>⬆︎</b>, puis « <b>Sur l'écran d'accueil</b> ».",insMenu:"Ouvre le menu du navigateur <b>⋮</b>, puis « <b>Ajouter à l'écran d'accueil</b> ».",insClose:"Fermer",
   level:"Niveau",tagPrep:"avec préposition",qPrep:"Choisis la bonne préposition",
   vLede2:"Les verbes importants de chaque unité A2, tirés de la liste de mots du livre (les verbes déjà vus en A1 ne sont pas repris). Pour chaque verbe : présent, prétérit (Präteritum), Perfekt et impératif, avec sa préposition s'il en a une. Les formes en couleur sont irrégulières.",
   wLede2:"Les nouveaux mots à apprendre dans chaque unité A2, tirés de la liste de mots à la fin du livre (vocabulaire de l'examen A2 ; les mots déjà vus en A1 ne sont pas repris). Apprends toujours un nom avec son article et son pluriel.",
@@ -752,7 +770,7 @@ document.addEventListener("click",e=>{const b=e.target.closest(".lvls button");i
   try{const q=new URLSearchParams(location.search);if(q.has("level")){q.delete("level");const qs=q.toString();history.replaceState(history.state,"",location.pathname+(qs?"?"+qs:"")+location.hash)}}catch(err){}
   renderAll();window.scrollTo(0,0)});
 function langSwitch(){return `<span class="langs" role="group" aria-label="Language">${[["ar","عربي"],["en","EN"],["fr","FR"]].map(([l,t])=>`<button type="button" data-l="${l}" lang="${l}" aria-pressed="${l===lang}">${t}</button>`).join("")}</span>`}
-document.addEventListener("click",e=>{const b=e.target.closest(".langs button[data-l]");if(!b)return;lang=b.dataset.l;store.set("dgr-lang-v",lang);applyLang();renderAll();if(!$("#ov").hidden&&SESSION)SESSION.rerender()});
+document.addEventListener("click",e=>{const b=e.target.closest(".langs button[data-l]");if(!b)return;lang=b.dataset.l;store.set("dgr-lang-v",lang);applyLang();renderAll();if($("#inst")&&!$("#inst").hidden)instShow(INST.mode);if(!$("#ov").hidden&&SESSION)SESSION.rerender()});
 
 /* ================= Shell ================= */
 const ICON={
@@ -1100,6 +1118,35 @@ document.addEventListener("keydown",e=>{
   if(!s.answered&&/^[1-4]$/.test(e.key)){const k=+e.key-1;if(k<q.opts.length){e.preventDefault();answer(k)}}
   else if(s.answered&&e.key==="Enter"){e.preventDefault();next()}
 });
+
+/* ================= Install hint (phone home screen) ================= */
+const INST={ev:null,mode:null};
+function isStandalone(){try{return matchMedia("(display-mode: standalone)").matches||navigator.standalone===true}catch(e){return false}}
+function instAllowed(){
+  const test=/[?&]installtest\b/.test(location.search);
+  if(test)return true;
+  if(location.protocol!=="https:"||isStandalone())return false;
+  try{if(window.top!==window)return false}catch(e){return false}
+  const until=store.get("dgr-inst-hide",0);if(until&&Date.now()<until)return false;
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
+}
+function instShow(mode){
+  if(!instAllowed())return;INST.mode=INST.mode==="prompt"?"prompt":mode;
+  let el=$("#inst");if(!el){el=document.createElement("div");el.id="inst";el.className="inst";el.setAttribute("role","dialog");document.body.appendChild(el)}
+  const u=S();el.dir=u.dir;el.lang=lang;
+  const how=INST.mode==="ios"?u.insIos:INST.mode==="menu"?u.insMenu:u.insD;
+  el.innerHTML=`<img src="icon-192.png" alt="" class="inst-ic" onerror="this.remove()"><div class="inst-tx"><strong>${u.insT}</strong><span>${how}</span></div>
+   <div class="inst-b">${INST.mode==="prompt"?`<button type="button" class="btn sm" id="instGo">${u.insBtn}</button>`:""}<button type="button" class="inst-x" id="instNo" aria-label="${esc(u.insClose)}">${INST.mode==="prompt"?u.insLater:"✕"}</button></div>`;
+  el.hidden=false;requestAnimationFrame(()=>el.classList.add("on"));
+  $("#instNo").onclick=()=>{store.set("dgr-inst-hide",Date.now()+14*864e5);instHide()};
+  const g=$("#instGo");if(g)g.onclick=async()=>{const e=INST.ev;if(!e)return;instHide();try{e.prompt();const r=await e.userChoice;if(r&&r.outcome==="dismissed")store.set("dgr-inst-hide",Date.now()+14*864e5)}catch(err){}INST.ev=null};
+}
+function instHide(){const el=$("#inst");if(el){el.classList.remove("on");el.hidden=true}}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();INST.ev=e;INST.mode="prompt";setTimeout(()=>instShow("prompt"),1500)});
+window.addEventListener("appinstalled",()=>{store.set("dgr-inst-hide",Date.now()+3650*864e5);instHide()});
+setTimeout(()=>{if(INST.mode)return;const ua=navigator.userAgent;
+  if(/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))instShow("ios");
+  else if(/Android/i.test(ua)||/[?&]installtest\b/.test(location.search))instShow("menu")},4000);
 
 setLevel(LEVEL);
 renderAll();
