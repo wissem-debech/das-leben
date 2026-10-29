@@ -1,0 +1,18 @@
+{
+  "name": "Das Leben A1 + A2 · مراجعة",
+  "short_name": "Das Leben",
+  "description": "Grammatik, Verben und Wortschatz für Das Leben A1 und A2 – Arabisch, Englisch, Französisch",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#18233a",
+  "theme_color": "#18233a",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
